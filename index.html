@@ -11,386 +11,329 @@
 <title>Tamayo Movement</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,200..700;1,62..125,200..500&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap">
 <style>
-/* Layout: the logo's flag — deep-blue stage band, red fan, white ribbons — as the page's spine; expanded black type like the wordmark */
+/* Layout: quiet gallery — wide margins, light expanded capitals echoing the wordmark, photographs carry colour, red is a single point of emphasis */
 :root{
-  --bg:#F5F7FB; --surface:#FFFFFF; --ink:#070A12; --muted:#4D5A70; --line:#DADFEA;
-  --blue:#0F448A; --sky:#2E6BD1; --red:#E31B23; --onRed:#FFFFFF;
-  --band:#0A2C5E; --band2:#082349; --onBand:#FFFFFF; --onBandMuted:rgba(255,255,255,.72); --bandLine:rgba(255,255,255,.16);
-  --shadow:0 24px 60px -30px rgba(7,10,18,.45);
-  --display:"Archivo","Arial Black","Helvetica Neue",sans-serif;
+  --bg:#F8F8F7; --surface:#FFFFFF; --ink:#0C0C0E; --muted:#6C6F76; --line:#E4E4E2;
+  --red:#D2192A; --blue:#0F448A; --inv:#0C0C0E; --onInv:#F4F4F2; --onInvMuted:rgba(244,244,242,.6); --invLine:rgba(244,244,242,.14);
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"DM Mono",ui-monospace,Menlo,monospace;
-  --r:16px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#060B16; --surface:#0D1629; --ink:#F2F5FA; --muted:#98A5BC; --line:#1B2843;
-  --blue:#3D78DD; --sky:#5B8FE6; --red:#FF3A40; --onRed:#FFFFFF;
-  --band:#0A2654; --band2:#071C40;
-  --shadow:0 24px 60px -30px rgba(0,0,0,.8); color-scheme:dark}}
+  --bg:#0B0B0D; --surface:#121215; --ink:#EDEDEB; --muted:#8F9299; --line:#24242A;
+  --red:#FF4655; --blue:#7EA6EE; --inv:#F4F4F2; --onInv:#0C0C0E; --onInvMuted:rgba(12,12,14,.62); --invLine:rgba(12,12,14,.14); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#060B16; --surface:#0D1629; --ink:#F2F5FA; --muted:#98A5BC; --line:#1B2843;
-  --blue:#3D78DD; --sky:#5B8FE6; --red:#FF3A40; --onRed:#FFFFFF;
-  --band:#0A2654; --band2:#071C40;
-  --shadow:0 24px 60px -30px rgba(0,0,0,.8); color-scheme:dark}
+  --bg:#0B0B0D; --surface:#121215; --ink:#EDEDEB; --muted:#8F9299; --line:#24242A;
+  --red:#FF4655; --blue:#7EA6EE; --inv:#F4F4F2; --onInv:#0C0C0E; --onInvMuted:rgba(12,12,14,.62); --invLine:rgba(12,12,14,.14); color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--band)}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
 a{color:inherit}
-img{max-width:100%}
-:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3,h4{font-family:var(--display);font-stretch:118%;font-weight:900;line-height:.92;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance;margin:0}
-h2{font-size:clamp(2.3rem,6.2vw,4.6rem)}
-h3{font-size:1.5rem;font-weight:850}
+img{max-width:100%;display:block}
+:focus-visible{outline:1.5px solid var(--red);outline-offset:4px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+@media (min-width:900px){.wrap{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
+h1,h2,h3,h4{font-family:var(--display);font-stretch:125%;font-weight:250;text-transform:uppercase;letter-spacing:.01em;line-height:1;margin:0;text-wrap:balance}
+h2{font-size:clamp(2rem,4.6vw,3.6rem)}
+h3{font-size:1.2rem;font-weight:400;letter-spacing:.04em}
+em{font-style:italic;font-weight:200;color:var(--red)}
 p{margin:0}
-.eyebrow{font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);display:inline-flex;align-items:center;gap:10px}
-.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
-.lede{color:var(--muted);max-width:62ch;font-size:1.06rem}
-section{padding-block:clamp(72px,10vw,128px)}
-.sec-head{display:grid;gap:16px;margin-bottom:44px}
-.sec-head.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:end;gap:24px 48px}
-@media (max-width:820px){.sec-head.split{grid-template-columns:1fr}}
-.star{color:var(--red)}
+.label{font:400 .7rem var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.label.r{color:var(--red)}
+.lede{color:var(--muted);max-width:52ch;font-size:1.04rem}
+section{padding-block:clamp(88px,12vw,168px)}
+.rule{border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 64px;align-items:end;margin-bottom:clamp(48px,6vw,88px)}
+.head .label{grid-column:1/-1}
+@media (max-width:820px){.head{grid-template-columns:1fr}}
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 .95rem var(--body);padding:14px 22px;border-radius:999px;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease,background .18s}
-.btn:hover{transform:translateY(-2px)}
-.btn-red{background:var(--red);color:var(--onRed);box-shadow:0 10px 24px -12px var(--red)}
-.btn-line{background:transparent;color:var(--onBand);box-shadow:inset 0 0 0 2px var(--onBand)}
-.btn-ink{background:var(--ink);color:var(--bg)}
-.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
-.btn-ghost:hover{box-shadow:inset 0 0 0 2px var(--ink)}
+.link{display:inline-flex;align-items:center;gap:12px;font:500 .78rem var(--body);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:0 0 6px;border:0;border-bottom:1px solid currentColor;transition:gap .25s,color .2s;background:none;color:inherit;cursor:pointer}
+.link::after{content:"→"}
+.link:hover{gap:18px;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:500 .78rem var(--body);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:16px 26px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
 
 /* Nav */
-header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--band);color:var(--onBand);border-bottom:1px solid var(--bandLine)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{height:44px;width:auto}
-.brand b{font-family:var(--display);font-stretch:118%;font-weight:900;font-size:1.05rem;line-height:1;letter-spacing:-.01em}
-.brand small{display:block;font:500 .62rem var(--mono);letter-spacing:.32em;color:var(--red);margin-top:3px}
-.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
-.nav ul a{text-decoration:none;font-weight:600;font-size:.9rem;color:var(--onBandMuted)}
-.nav ul a:hover{color:var(--onBand)}
-@media (max-width:980px){.nav ul{display:none}}
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:34px;width:auto}
+.brand span{font-family:var(--display);font-stretch:125%;font-weight:400;font-size:.8rem;letter-spacing:.2em;line-height:1.2}
+.brand small{display:block;color:var(--red);font-size:.62rem;letter-spacing:.42em}
+.nav ul{display:flex;gap:32px;list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav ul a:hover{color:var(--ink)}
+.nav .btn{padding:11px 18px}
+@media (max-width:1000px){.nav ul{display:none}}
+@media (max-width:420px){.brand span{display:none}}
+.lg-d{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-l{display:none}:root:not([data-theme="light"]) .lg-d{display:block}}
+:root[data-theme="dark"] .lg-l{display:none}:root[data-theme="dark"] .lg-d{display:block}
 
-/* HERO */
-.hero{background:radial-gradient(120% 90% at 85% 10%,#1A4FA6 0%,var(--band) 45%,var(--band2) 100%);color:var(--onBand);position:relative;overflow:hidden;padding-block:clamp(40px,7vw,96px) 0}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9}
-.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center}
-.kicker{font:500 .78rem var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--onBandMuted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.kicker b{color:var(--onBand);background:var(--red);padding:4px 10px;border-radius:4px;font-weight:500}
-.hero h1{font-size:clamp(3.2rem,9.6vw,8.4rem);line-height:.84;margin:22px 0 22px;font-stretch:125%}
-.hero h1 .r{color:var(--red);display:block}
-.hero h1 .s{-webkit-text-stroke:2px var(--onBand);color:transparent;display:block}
-.hero .lede{color:var(--onBandMuted);margin-bottom:30px;font-size:1.12rem}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
-.stage{position:relative;aspect-ratio:4/5;max-width:100%}
-.stage .fan{position:absolute;left:50%;top:-2%;width:92%;aspect-ratio:2/1;transform:translateX(-50%);background:var(--red);border-radius:999px 999px 0 0;display:grid;place-items:start center;padding-top:6%}
-.stage .fan svg{width:13%;height:auto}
-.stage .shot{position:absolute;inset:22% 8% 0 8%;border-radius:200px 200px 0 0;overflow:hidden;border:6px solid var(--onBand);border-bottom:0;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
-.stage .shot img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
-.stage .pill{position:absolute;font:600 .74rem var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--onBand);color:#070A12;padding:8px 12px;border-radius:999px;box-shadow:var(--shadow)}
-.stage .p1{left:-2%;top:46%}
-.stage .p2{right:-2%;top:64%;background:var(--red);color:#fff}
-.stage .p3{left:4%;bottom:8%}
-@media (max-width:880px){.hero-grid{grid-template-columns:1fr}.stage{max-width:440px;margin:0 auto;width:100%}}
+/* Hero */
+.hero{padding-block:clamp(48px,7vw,96px) clamp(72px,9vw,120px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:end}
+.hero h1{font-size:clamp(3rem,8.6vw,7.6rem);font-weight:200;line-height:.92;letter-spacing:-.005em;margin:28px 0 36px}
+.hero h1 b{font-weight:600}
+.hero .lede{margin-bottom:40px}
+.hero-ctas{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.portrait img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.05);transition:filter 1.2s ease}
+.portrait:hover img{filter:none}
+.portrait figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:14px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:10px;vertical-align:1px}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.portrait{max-width:460px}}
+.facts-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);margin-top:clamp(64px,8vw,112px)}
+.facts-row div{padding:28px 24px 0 0;display:grid;gap:6px}
+.facts-row b{font-family:var(--display);font-stretch:125%;font-weight:200;font-size:clamp(2rem,4vw,3.2rem);line-height:1;font-variant-numeric:tabular-nums}
+@media (max-width:700px){.facts-row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}}
 
-.stats{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--bandLine);margin-top:clamp(40px,6vw,72px)}
-.stats div{padding:22px 18px;border-right:1px solid var(--bandLine);display:grid;gap:4px}
-.stats div:last-child{border-right:0}
-.stats b{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1;font-variant-numeric:tabular-nums}
-.stats span{font:500 .74rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--onBandMuted)}
-@media (max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:1px solid var(--bandLine)}}
-
-/* Ticker */
-.ticker{background:var(--red);color:#fff;overflow:hidden;padding-block:14px;border-block:3px solid var(--ink)}
-.ticker-track{display:flex;gap:30px;white-space:nowrap;width:max-content;animation:roll 42s linear infinite;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(1.2rem,2.6vw,1.9rem);text-transform:uppercase}
-.ticker-track span{display:inline-flex;align-items:center;gap:30px}
-.ticker-track span::after{content:"★";font-size:.7em}
-@keyframes roll{to{transform:translateX(-50%)}}
+/* Wide image */
+.wide{position:relative}
+.wide img{width:100%;height:clamp(300px,52vw,680px);object-fit:cover;object-position:50% 30%}
+.wide .cap{position:absolute;left:max(20px,env(safe-area-inset-left,0px));bottom:24px;color:#fff;font:400 .7rem var(--mono);letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 10px rgba(0,0,0,.4)}
 
 /* Duo */
-.bios{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:24px}
-.bio{background:var(--surface);border-radius:var(--r);overflow:hidden;border:1px solid var(--line);display:grid}
-.bio.main{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-.bio .ph{position:relative;overflow:hidden;min-height:320px}
-.bio .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
-.bio:hover .ph img{transform:scale(1.04)}
-.bio .txt{padding:28px;display:grid;gap:14px;align-content:start}
-.bio h3{font-size:clamp(1.9rem,3.4vw,2.6rem)}
-.role{font:500 .74rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
-.facts{display:grid;gap:0;margin-top:6px}
-.facts div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.92rem}
-.facts span{color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{font:500 .76rem var(--mono);padding:6px 11px;border-radius:999px;background:color-mix(in srgb,var(--blue) 10%,transparent);color:var(--blue)}
-.bio.side .ph{min-height:300px}
-@media (max-width:980px){.bios{grid-template-columns:1fr}}
-@media (max-width:640px){.bio.main{grid-template-columns:1fr}}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px)}
+.person{display:grid;gap:24px;align-content:start}
+.person:nth-child(2){margin-top:clamp(0px,12vw,160px)}
+.person img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1);transition:filter 1s}
+.person:hover img{filter:none}
+.person h3{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:250;letter-spacing:.02em}
+.person p{color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px 18px;font:400 .72rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:760px){.duo{grid-template-columns:1fr}.person:nth-child(2){margin-top:0}}
 
-/* Clave lab */
-.clave{background:var(--band);color:var(--onBand)}
-.clave .lede{color:var(--onBandMuted)}
-.clave .eyebrow{color:#FF6B6F}
-.lab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
-.pad{background:var(--band2);border:1px solid var(--bandLine);border-radius:20px;padding:24px}
-.pad-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-.seg{display:inline-flex;background:rgba(255,255,255,.08);border-radius:999px;padding:4px}
-.seg button{border:0;background:transparent;color:var(--onBandMuted);font:600 .85rem var(--body);padding:8px 14px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--onBand);color:#070A12}
-.steps{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:5px}
-.steps i{aspect-ratio:1/1.6;border-radius:6px;background:rgba(255,255,255,.08);position:relative;transition:background .08s,transform .08s}
-.steps i.hit{background:rgba(255,255,255,.28)}
-.steps i.hit::after{content:"";position:absolute;inset:30% 20%;border-radius:50%;background:var(--onBand)}
-.steps i:nth-child(4n+1){box-shadow:inset 0 -3px 0 rgba(255,255,255,.25)}
-.steps i.now{background:rgba(255,255,255,.18)}
-.steps i.hit.now{background:var(--red);transform:scale(1.08)}
-.beats{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:5px;margin-top:8px;font:500 .66rem var(--mono);color:var(--onBandMuted);text-align:center}
-.pad-ctl{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:20px}
-.pad-ctl label{display:flex;align-items:center;gap:10px;font:500 .8rem var(--mono);color:var(--onBandMuted)}
-.pad-ctl input[type=range]{accent-color:var(--red);width:140px}
-.bpm{font-variant-numeric:tabular-nums;color:var(--onBand);min-width:3ch}
-@media (max-width:880px){.lab{grid-template-columns:1fr}}
+/* Clave */
+.clave-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);align-items:center}
+.clave-ctl{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:40px}
+.tog{display:flex;gap:24px}
+.tog button{background:none;border:0;padding:0 0 6px;font:500 .74rem var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:1px solid transparent}
+.tog button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.steps{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));align-items:center;height:56px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps i{display:grid;place-items:center;height:100%}
+.steps i::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--line);transition:all .1s}
+.steps i:nth-child(4n+1)::before{background:var(--muted)}
+.steps i.hit::before{width:12px;height:12px;background:var(--ink)}
+.steps i.hit.now::before{background:var(--red);transform:scale(1.5)}
+.beats{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));margin-top:10px;font:400 .66rem var(--mono);color:var(--muted);text-align:center}
+.tempo{display:flex;align-items:center;gap:14px;font:400 .72rem var(--mono);letter-spacing:.1em;color:var(--muted);margin-top:28px;flex-wrap:wrap}
+.tempo input{accent-color:var(--ink);width:160px}
+.tempo b{color:var(--ink);font-weight:400;font-variant-numeric:tabular-nums}
+@media (max-width:860px){.clave-grid{grid-template-columns:1fr}}
 
-/* Styles tabs */
-.styles{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;margin-top:64px}
-.style-list{display:grid;gap:0}
-.style-list button{all:unset;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 4px;border-top:1px solid var(--bandLine);font-family:var(--display);font-stretch:120%;font-weight:850;font-size:clamp(1.3rem,2.6vw,1.9rem);text-transform:uppercase;color:var(--onBandMuted);transition:color .2s,padding .2s}
-.style-list button::after{content:"→";font-family:var(--body);font-size:1.1rem;opacity:0;transition:opacity .2s}
-.style-list button[aria-selected="true"]{color:var(--onBand);padding-left:12px}
-.style-list button[aria-selected="true"]::after{opacity:1;color:#FF6B6F}
-.style-list button:focus-visible{outline:3px solid var(--red)}
-.style-card{background:var(--onBand);color:#070A12;border-radius:20px;padding:30px;display:grid;gap:14px;align-content:start;min-height:100%}
-.style-card .tagline{font:500 .76rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#E31B23}
-.style-card h3{font-size:clamp(2rem,4vw,3rem)}
-.style-card p{color:#3C475B}
-.style-card ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
-.style-card li{font:500 .78rem var(--mono);padding:6px 11px;border-radius:999px;background:#EEF2FA;color:#0F448A}
-@media (max-width:880px){.styles{grid-template-columns:1fr}}
-
-/* Videos */
-.feat{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:20px;margin-bottom:20px}
-.vcard{position:relative;display:grid;text-decoration:none;color:#fff;border-radius:var(--r);overflow:hidden;min-height:220px;isolation:isolate;background:var(--band)}
-.vcard .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s}
-.vcard::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,10,18,.05) 30%,rgba(7,10,18,.88) 100%)}
-.vcard:hover .bgimg{transform:scale(1.05)}
-.vcard .in{align-self:end;padding:22px;display:grid;gap:8px}
-.vcard .meta{font:500 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.85;display:flex;gap:10px;flex-wrap:wrap}
-.vcard h3{font-size:clamp(1.3rem,2.6vw,2.2rem);line-height:.95}
-.yt{position:absolute;right:18px;top:18px;width:64px;height:44px;border-radius:12px;background:var(--red);display:grid;place-items:center;transition:transform .2s}
-.yt::before{content:"";border-left:16px solid #fff;border-block:10px solid transparent;margin-left:4px}
-.vcard:hover .yt{transform:scale(1.1)}
-.feat .big{min-height:clamp(320px,42vw,500px)}
-.feat .big h3{font-size:clamp(1.8rem,4.2vw,3.4rem)}
-.feat .stack{display:grid;gap:20px}
-.poster{background:var(--band)}
-.poster .year{position:absolute;left:18px;top:14px;font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(3rem,7vw,5.4rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55);z-index:-1}
-.poster.red{background:var(--red)}
-.poster.ink{background:#070A12}
-.poster.red::before,.poster.ink::before,.poster.blue::before{background:none}
-.poster.blue{background:linear-gradient(135deg,#0F448A,#2E6BD1)}
-.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.vgrid .vcard{min-height:250px}
-.vgrid .yt{width:50px;height:36px;right:14px;top:14px}
-.vgrid .yt::before{border-left-width:13px;border-block-width:8px}
-.yt-cta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:28px;padding:22px 24px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface)}
-.yt-cta b{font-family:var(--display);font-stretch:118%;text-transform:uppercase;font-size:1.2rem}
-.yt-cta p{color:var(--muted);font-size:.92rem}
-@media (max-width:980px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.feat{grid-template-columns:1fr}.feat .stack{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.vgrid,.feat .stack{grid-template-columns:1fr}}
-
-/* Formaciones */
-.forms{display:grid;gap:16px}
-.form-row{display:grid;grid-template-columns:150px minmax(0,1fr) 220px auto;gap:24px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;transition:border-color .2s,transform .2s}
-.form-row:hover{border-color:var(--ink);transform:translateX(4px)}
-.when{font-family:var(--display);font-stretch:118%;line-height:.95;text-transform:uppercase}
-.when b{display:block;font-size:2.2rem;font-weight:900;font-variant-numeric:tabular-nums}
-.when small{font:500 .74rem var(--mono);letter-spacing:.12em;color:var(--muted)}
-.form-row h3{font-size:1.45rem;margin-bottom:6px}
-.form-row p{color:var(--muted);font-size:.93rem}
-.form-row .k{font:500 .7rem var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:5px;display:inline-block;margin-bottom:8px}
-.k-form{background:var(--red);color:#fff}.k-int{background:var(--blue);color:#fff}.k-onl{background:var(--ink);color:var(--bg)}
-.seats{display:grid;gap:6px;font:500 .78rem var(--mono);color:var(--muted)}
-.seats .bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden}
-.seats .bar i{display:block;height:100%;background:var(--red);border-radius:9px}
-.seats .loc{color:var(--ink);font-weight:500}
-@media (max-width:980px){.form-row{grid-template-columns:110px minmax(0,1fr)}.form-row .seats,.form-row .go{grid-column:2}}
-@media (max-width:520px){.form-row{grid-template-columns:1fr}.form-row .seats,.form-row .go{grid-column:auto}}
-.ex{font:500 .76rem var(--mono);color:var(--muted);background:color-mix(in srgb,var(--red) 9%,transparent);border-radius:8px;padding:9px 13px;margin-top:18px;display:inline-block}
-
-/* Agenda */
-.agenda{background:var(--surface);border-block:1px solid var(--line)}
-.agenda-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:start}
-.cal{border:1px solid var(--line);border-radius:var(--r);padding:20px;background:var(--bg)}
-.cal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-.cal-top h3{font-size:1.7rem}
-.cal-nav{display:flex;gap:8px}
-.icon-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:1.05rem}
-.icon-btn:hover{border-color:var(--ink)}
-.dow,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.dow span{font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);text-align:center;padding-bottom:6px}
-.day{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-variant-numeric:tabular-nums;font-weight:600;font-size:.92rem;border:1px solid transparent;background:transparent;color:var(--ink);padding:0;font-family:var(--body)}
-.day.mute{opacity:.28}
-.day.has{cursor:pointer;background:var(--surface);border-color:var(--line)}
-.day.has i{width:7px;height:7px;border-radius:50%;display:block}
-.day.sel{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:.8rem;color:var(--muted)}
-.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.events{display:grid;gap:12px}
-.ev{display:grid;grid-template-columns:70px minmax(0,1fr);gap:16px;padding:16px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg)}
-.ev.hl{border-color:var(--ink)}
-.ev .d{text-align:center;font-family:var(--display);font-stretch:118%;line-height:.9}
-.ev .d b{display:block;font-size:2rem;font-weight:900}
-.ev .d small{font:500 .7rem var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
-.ev h4{font-family:var(--body);text-transform:none;font-size:1.02rem;font-weight:700;line-height:1.3;margin-bottom:4px;letter-spacing:0}
-.ev p{color:var(--muted);font-size:.88rem}
-.ev .kind{font:500 .68rem var(--mono);text-transform:uppercase;letter-spacing:.12em;display:inline-flex;align-items:center;gap:6px;margin-bottom:4px}
-.ev .kind i{width:8px;height:8px;border-radius:50%}
-.fests{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;align-items:center}
-.fests span{font-family:var(--display);font-stretch:118%;font-weight:850;text-transform:uppercase;font-size:1rem;padding:10px 16px;border:1.5px solid var(--line);border-radius:999px}
-.fests em{font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-style:normal;margin-right:6px}
-@media (max-width:900px){.agenda-grid{grid-template-columns:1fr}}
-
-/* School */
-.school{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
-.week{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.dayc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;align-content:start}
-.dayc b{font-family:var(--display);font-stretch:118%;text-transform:uppercase;font-size:1.3rem}
-.dayc span{font-size:.88rem;padding:8px 10px;border-radius:8px;background:var(--bg);border-left:3px solid var(--blue)}
-.dayc span.r{border-left-color:var(--red)}
-.addr{background:var(--band);color:var(--onBand);border-radius:var(--r);padding:28px;display:grid;gap:14px;align-content:start;position:relative;overflow:hidden}
-.addr img{position:absolute;right:-30px;bottom:-40px;width:200px;opacity:.16}
-.addr h3{font-size:2rem}
-.addr p{color:var(--onBandMuted)}
-@media (max-width:880px){.school{grid-template-columns:1fr}}
-@media (max-width:520px){.week{grid-template-columns:1fr}}
+/* Styles */
+.styles{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);margin-top:clamp(88px,10vw,140px)}
+.slist{display:grid}
+.slist button{all:unset;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;padding:18px 0;border-top:1px solid var(--line);font-family:var(--display);font-stretch:125%;font-weight:250;font-size:clamp(1.15rem,2.2vw,1.6rem);text-transform:uppercase;letter-spacing:.03em;color:var(--muted);transition:color .25s}
+.slist button:last-child{border-bottom:1px solid var(--line)}
+.slist button small{font:400 .66rem var(--mono);letter-spacing:.14em}
+.slist button[aria-selected="true"]{color:var(--ink)}
+.slist button[aria-selected="true"] small{color:var(--red)}
+.slist button:focus-visible{outline:1.5px solid var(--red);outline-offset:4px}
+.scard{display:grid;gap:22px;align-content:start;padding-top:18px}
+.scard h3{font-size:clamp(2.4rem,5vw,4rem);font-weight:200}
+.scard p{color:var(--muted);max-width:52ch;font-size:1.05rem}
+@media (max-width:860px){.styles{grid-template-columns:1fr}}
 
 /* Services */
-.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.svc article{background:var(--bg);padding:30px;display:grid;gap:12px;align-content:start;transition:background .25s;position:relative}
-.svc article:hover{background:var(--surface)}
-.svc article::before{content:"";position:absolute;left:0;top:0;height:4px;width:0;background:var(--red);transition:width .35s}
-.svc article:hover::before{width:100%}
-.svc h3{font-size:1.45rem}
-.svc p{color:var(--muted);font-size:.95rem}
-.svc .sn{font:500 .78rem var(--mono);color:var(--red);letter-spacing:.1em}
-.svc .more{font-weight:700;font-size:.9rem;text-decoration:none;color:var(--ink);margin-top:4px}
-.svc .more:hover{color:var(--red)}
-.svc article.cta-card{background:var(--band);color:var(--onBand)}
-.svc article.cta-card p{color:var(--onBandMuted)}
-.svc .for{font:500 .74rem var(--mono);color:var(--blue);letter-spacing:.08em;text-transform:uppercase}
-@media (max-width:900px){.svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.svc{grid-template-columns:1fr}}
+.svc{display:grid}
+.svc a{display:grid;grid-template-columns:72px minmax(0,4fr) minmax(0,5fr) 32px;gap:24px;align-items:baseline;padding:34px 0;border-top:1px solid var(--line);text-decoration:none;transition:padding .35s}
+.svc a:last-child{border-bottom:1px solid var(--line)}
+.svc a:hover{padding-left:12px}
+.svc .n{font:400 .72rem var(--mono);color:var(--muted);letter-spacing:.14em}
+.svc h3{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:250;letter-spacing:.02em;transition:color .25s}
+.svc p{color:var(--muted);font-size:.98rem}
+.svc .ar{color:var(--muted);transition:color .25s,transform .25s;justify-self:end}
+.svc a:hover .ar{color:var(--red);transform:translateX(4px)}
+.svc a:hover h3{color:var(--red)}
+@media (max-width:760px){.svc a{grid-template-columns:44px minmax(0,1fr) 24px}.svc p{grid-column:2/3}.svc .ar{grid-row:1;grid-column:3}}
 
-/* Academy */
-.academy{background:#070A12;color:#fff}
-.academy .lede{color:rgba(255,255,255,.7)}
-.academy .eyebrow{color:#FF6B6F}
-.app{margin-top:8px;background:#0E1424;border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden}
-.app-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
-.app-bar .who{display:flex;align-items:center;gap:10px;font-size:.9rem}
-.app-bar .who img{height:30px}
-.prog{display:flex;align-items:center;gap:10px;font:500 .8rem var(--mono)}
-.prog .bar{width:140px;height:6px;background:rgba(255,255,255,.15);border-radius:9px;overflow:hidden}
-.prog .bar i{display:block;height:100%;width:38%;background:var(--red)}
-.filters{display:flex;gap:8px;flex-wrap:wrap;padding:18px 18px 0}
-.filters button{font:600 .85rem var(--body);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;cursor:pointer}
-.filters button[aria-pressed="true"]{background:#fff;color:#070A12;border-color:#fff}
-.vids{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:18px}
-.vid{all:unset;cursor:pointer;display:grid;gap:10px;border-radius:12px}
-.vid .th{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#13243a}
-.vid .th img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.vid:hover .th img{transform:scale(1.05)}
-.vid:focus-visible{outline:3px solid var(--red);outline-offset:3px}
-.vid .play{position:absolute;left:10px;bottom:10px;width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center}
-.vid .play::before{content:"";border-left:13px solid #070A12;border-block:8px solid transparent;margin-left:4px}
-.vid .dur{position:absolute;right:10px;bottom:10px;font:500 .74rem var(--mono);background:rgba(7,10,18,.82);color:#fff;padding:3px 7px;border-radius:5px}
-.vid .lock{position:absolute;right:10px;top:10px;font:600 .68rem var(--mono);background:#E31B23;color:#fff;padding:3px 8px;border-radius:5px;text-transform:uppercase;letter-spacing:.08em}
-.vid .lock.free{background:#2E6BD1}
-.vid h4{font-family:var(--body);text-transform:none;font-size:1rem;font-weight:600;line-height:1.3;letter-spacing:0}
-.vid small{font:500 .74rem var(--mono);color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.08em}
-@media (max-width:860px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.vids{grid-template-columns:1fr}}
-.program{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:40px;margin-top:72px;align-items:start}
-.weeks{border-left:2px solid rgba(255,255,255,.18)}
-.wk{position:relative;padding:0 0 22px 26px}
-.wk::before{content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:#070A12;border:2px solid #E31B23}
-.wk.done::before{background:#E31B23}
-.wk b{font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#FF6B6F}
-.wk h4{margin:4px 0 4px;font-size:1.3rem}
-.wk p{color:rgba(255,255,255,.66);font-size:.92rem}
-@media (max-width:860px){.program{grid-template-columns:1fr}}
-.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:72px}
-.plan{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:26px;display:grid;gap:14px;align-content:start}
-.plan.star{background:#fff;color:#070A12;border-color:#fff;position:relative}
-.plan.star::after{content:"Más elegido";position:absolute;top:-12px;right:20px;background:#E31B23;color:#fff;font:600 .7rem var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
-.plan .price{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:3rem;line-height:1}
-.plan .price small{font:500 .82rem var(--mono)}
-.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:.92rem}
-.plan li::before{content:"★ ";color:#E31B23}
-.plan .btn{background:#fff;color:#070A12}
-.plan.star .btn{background:#E31B23;color:#fff}
-@media (max-width:860px){.plans{grid-template-columns:1fr}}
+/* Videos */
+.vfeat{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:24px}
+.v{display:grid;gap:14px;text-decoration:none;align-content:start}
+.v .frame{position:relative;overflow:hidden;background:var(--inv)}
+.v .frame img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:grayscale(1);transition:filter .9s,transform 1.2s}
+.v:hover .frame img{filter:none;transform:scale(1.03)}
+.v .play{position:absolute;inset:0;display:grid;place-items:center}
+.v .play span{width:64px;height:64px;border-radius:50%;border:1px solid rgba(255,255,255,.8);display:grid;place-items:center;transition:background .3s,border-color .3s}
+.v .play span::before{content:"";border-left:11px solid #fff;border-block:7px solid transparent;margin-left:3px}
+.v:hover .play span{background:var(--red);border-color:var(--red)}
+.v .meta{display:flex;justify-content:space-between;gap:12px}
+.v h4{font-size:1rem;font-weight:400;letter-spacing:.06em;line-height:1.3}
+.v .type{position:relative;overflow:hidden;background:var(--inv);aspect-ratio:16/10;display:grid;place-items:center;text-align:center;padding:16px}
+.v .type b{font-family:var(--display);font-stretch:125%;font-weight:200;font-size:clamp(2.2rem,5vw,3.6rem);color:var(--onInv);letter-spacing:.04em}
+.v .type .play span{border-color:var(--invLine)}
+.v .type .play span::before{border-left-color:var(--onInv)}
+.v:hover .type .play span::before{border-left-color:#fff}
+.vside{display:grid;gap:24px;align-content:start}
+.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px;margin-top:56px}
+@media (max-width:980px){.vfeat{grid-template-columns:1fr}.vside{grid-template-columns:1fr 1fr}.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.vside,.vgrid{grid-template-columns:1fr}}
+.channel{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:72px;padding-top:32px;border-top:1px solid var(--line)}
+
+/* Formations */
+.forms{display:grid}
+.fr{display:grid;grid-template-columns:140px minmax(0,1fr) 220px 140px;gap:32px;align-items:center;padding:36px 0;border-top:1px solid var(--line)}
+.fr:last-child{border-bottom:1px solid var(--line)}
+.fr .d{font-family:var(--display);font-stretch:125%;font-weight:200;font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.fr .d small{display:block;font:400 .68rem var(--mono);letter-spacing:.18em;color:var(--muted);margin-top:8px;text-transform:uppercase}
+.fr h3{font-size:1.25rem;font-weight:350;letter-spacing:.03em;margin:8px 0}
+.fr p{color:var(--muted);font-size:.94rem}
+.seats{display:grid;gap:10px;font:400 .7rem var(--mono);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.seats .bar{height:1px;background:var(--line);position:relative}
+.seats .bar i{position:absolute;left:0;top:-1px;height:3px;background:var(--ink)}
+.fr .link{justify-self:end}
+@media (max-width:980px){.fr{grid-template-columns:110px minmax(0,1fr)}.fr .seats,.fr .link{grid-column:2}.fr .link{justify-self:start}}
+@media (max-width:520px){.fr{grid-template-columns:1fr;gap:16px}.fr .seats,.fr .link{grid-column:auto}}
+.note{font:400 .7rem var(--mono);letter-spacing:.08em;color:var(--muted);margin-top:28px}
+.note::before{content:"* "}
+
+/* Agenda */
+.ag{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);align-items:start}
+.cal-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px}
+.cal-top h3{font-size:1.4rem;font-weight:300}
+.cal-nav{display:flex;gap:4px}
+.cal-nav button{background:none;border:0;width:36px;height:36px;color:var(--ink);cursor:pointer;font-size:1rem}
+.cal-nav button:hover{color:var(--red)}
+.dow,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow span{font:400 .64rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:12px}
+.day{aspect-ratio:1;display:grid;place-items:center;font:400 .88rem var(--body);font-variant-numeric:tabular-nums;color:var(--muted);background:none;border:0;padding:0;position:relative}
+.day.mute{opacity:.25}
+.day.has{color:var(--ink);cursor:pointer;font-weight:600}
+.day.has::after{content:"";position:absolute;bottom:16%;left:50%;margin-left:-2px;width:4px;height:4px;border-radius:50%;background:var(--red)}
+.day.sel{background:var(--ink);color:var(--bg);border-radius:50%}
+.day.sel::after{background:var(--bg)}
+.evs{display:grid}
+.ev{display:grid;grid-template-columns:90px minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid var(--line);transition:opacity .2s}
+.ev:last-child{border-bottom:1px solid var(--line)}
+.evs.filtered .ev:not(.hl){opacity:.35}
+.ev .d{font-family:var(--display);font-stretch:125%;font-weight:200;font-size:1.6rem;line-height:1}
+.ev .d small{display:block;font:400 .64rem var(--mono);letter-spacing:.18em;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.ev h4{font-family:var(--body);text-transform:none;font-weight:500;font-size:1.02rem;letter-spacing:0;line-height:1.35;margin:4px 0}
+.ev p{color:var(--muted);font-size:.9rem}
+.fests{margin-top:72px;display:flex;flex-wrap:wrap;gap:12px 40px;align-items:baseline}
+.fests span{font-family:var(--display);font-stretch:125%;font-weight:250;text-transform:uppercase;letter-spacing:.06em;font-size:1rem;color:var(--muted)}
+.fests span.label{font:400 .7rem var(--mono);letter-spacing:.22em}
+@media (max-width:860px){.ag{grid-template-columns:1fr}}
+
+/* Online — the one inverted section */
+.online{background:var(--inv);color:var(--onInv)}
+.online .label{color:var(--onInvMuted)}
+.online .label.r{color:var(--red)}
+.online .lede{color:var(--onInvMuted)}
+.app{border:1px solid var(--invLine)}
+.app-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 24px;border-bottom:1px solid var(--invLine);font-size:.86rem}
+.prog{display:flex;align-items:center;gap:14px;font:400 .7rem var(--mono);letter-spacing:.1em;color:var(--onInvMuted)}
+.prog .bar{width:140px;height:1px;background:var(--invLine);position:relative}
+.prog .bar i{position:absolute;left:0;top:-1px;height:3px;width:38%;background:var(--red)}
+.filters{display:flex;gap:24px;flex-wrap:wrap;padding:24px 24px 0}
+.filters button{background:none;border:0;padding:0 0 6px;font:500 .72rem var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--onInvMuted);cursor:pointer;border-bottom:1px solid transparent}
+.filters button[aria-pressed="true"]{color:var(--onInv);border-bottom-color:var(--onInv)}
+.lessons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 24px;padding:24px}
+.lesson{all:unset;cursor:pointer;display:grid;gap:12px}
+.lesson .th{position:relative;overflow:hidden}
+.lesson .th img{width:100%;aspect-ratio:16/10;object-fit:cover;filter:grayscale(1);transition:filter .8s}
+.lesson:hover .th img{filter:none}
+.lesson .tg{position:absolute;left:12px;top:12px;font:400 .62rem var(--mono);letter-spacing:.16em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:4px 8px}
+.lesson .tg.free{background:var(--red)}
+.lesson .dur{position:absolute;right:12px;bottom:12px;font:400 .66rem var(--mono);color:#fff;background:rgba(0,0,0,.6);padding:3px 7px}
+.lesson small{font:400 .66rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--onInvMuted)}
+.lesson h4{font-family:var(--body);text-transform:none;letter-spacing:0;font-weight:500;font-size:.98rem;line-height:1.35}
+.lesson:focus-visible{outline:1.5px solid var(--red);outline-offset:4px}
+@media (max-width:860px){.lessons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.lessons{grid-template-columns:1fr}}
+.prog-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);margin-top:clamp(88px,10vw,140px)}
+.wk{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid var(--invLine)}
+.wk:last-child{border-bottom:1px solid var(--invLine)}
+.wk b{font:400 .68rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--onInvMuted);padding-top:4px}
+.wk.done b{color:var(--red)}
+.wk h4{font-size:1.05rem;font-weight:400;letter-spacing:.06em;margin-bottom:4px}
+.wk p{color:var(--onInvMuted);font-size:.92rem}
+@media (max-width:860px){.prog-grid{grid-template-columns:1fr}}
+@media (max-width:480px){.wk{grid-template-columns:1fr;gap:6px}}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:clamp(88px,10vw,140px);border-top:1px solid var(--invLine)}
+.plan{padding:40px 32px 0 0;display:grid;gap:18px;align-content:start;border-right:1px solid var(--invLine)}
+.plan + .plan{padding-left:32px}
+.plan:last-child{border-right:0}
+.plan .price{font-family:var(--display);font-stretch:125%;font-weight:200;font-size:3rem;line-height:1}
+.plan .price small{font:400 .72rem var(--mono);letter-spacing:.1em;color:var(--onInvMuted)}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:.92rem;color:var(--onInvMuted)}
+.plan li::before{content:"—  "}
+.plan.star .label{color:var(--red)}
+.plan .link{justify-self:start;margin-top:8px}
+@media (max-width:860px){.plans{grid-template-columns:1fr}.plan,.plan + .plan{padding:32px 0;border-right:0;border-bottom:1px solid var(--invLine)}}
+
+/* School */
+.school{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,7vw,112px);align-items:start}
+.wd{display:grid;grid-template-columns:140px minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid var(--line)}
+.wd:last-child{border-bottom:1px solid var(--line)}
+.wd b{font-family:var(--display);font-stretch:125%;font-weight:300;text-transform:uppercase;letter-spacing:.08em;font-size:.95rem}
+.wd span{display:block;color:var(--muted)}
+.place{display:grid;gap:20px}
+.place img{width:110px;height:auto}
+.place h3{font-size:1.8rem;font-weight:250}
+.place p{color:var(--muted)}
+@media (max-width:860px){.school{grid-template-columns:1fr}}
+@media (max-width:480px){.wd{grid-template-columns:1fr;gap:6px}}
 
 /* Gallery */
-.gal{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:clamp(120px,17vw,200px);gap:12px}
-.gal figure{margin:0;position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in}
-.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.gal figure:hover img{transform:scale(1.05)}
-.gal figcaption{position:absolute;left:10px;bottom:10px;font:500 .68rem var(--mono);background:rgba(7,10,18,.75);color:#fff;padding:4px 8px;border-radius:5px}
-.g1{grid-column:span 2;grid-row:span 2}.g2{grid-column:span 4}.g3{grid-column:span 2;grid-row:span 2}.g4{grid-column:span 2}
-.g1 img{object-position:50% 20%}.g3 img{object-position:50% 25%}
-.gal .logo-tile{background:var(--band);display:grid;place-items:center;cursor:default}
-.gal .logo-tile img{width:auto;height:72%;object-fit:contain}
-@media (max-width:700px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))}.g1,.g3,.g4{grid-column:span 1;grid-row:span 1}.g2{grid-column:span 2}}
+.gal{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.gal figure{margin:0;cursor:zoom-in;display:grid;gap:12px}
+.gal img{width:100%;object-fit:cover;filter:grayscale(1);transition:filter 1s}
+.gal figure:hover img{filter:none}
+.gal .a{grid-column:1/6}.gal .a img{aspect-ratio:3/4;object-position:50% 20%}
+.gal .b{grid-column:7/13;margin-top:120px}.gal .b img{aspect-ratio:3/2;object-position:50% 30%}
+.gal .c{grid-column:2/7;margin-top:-40px}.gal .c img{aspect-ratio:3/2;object-position:40% 30%}
+.gal .e{grid-column:8/12;margin-top:40px}.gal .e img{aspect-ratio:3/4;object-position:50% 20%}
+@media (max-width:760px){.gal{grid-template-columns:1fr;gap:32px}.gal .a,.gal .b,.gal .c,.gal .e{grid-column:auto;margin-top:0}}
 
 /* Booking */
-.book-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:44px;align-items:start}
-form{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{display:grid;gap:6px;font-weight:600;font-size:.88rem}
-input,select,textarea{font:inherit;font-weight:400;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
-input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:none}
-textarea{min-height:96px;resize:vertical}
-.out{display:grid;gap:10px;background:var(--bg);border-radius:10px;padding:14px;border:1px dashed var(--line)}
-.out pre{margin:0;white-space:pre-wrap;font:400 .85rem var(--mono);color:var(--ink)}
-.contact-list{display:grid;gap:14px;margin-top:26px}
-.contact-list div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px;flex-wrap:wrap}
-.contact-list span{font:500 .74rem var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-@media (max-width:860px){.book-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
+.book{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);align-items:start}
+.contacts{display:grid;margin-top:48px}
+.contacts div{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;font-size:.94rem}
+.contacts div:last-child{border-bottom:1px solid var(--line)}
+form{display:grid;gap:28px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+label{display:grid;gap:8px;font:400 .68rem var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+input,select,textarea{font:400 1rem var(--body);letter-spacing:0;text-transform:none;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);width:100%;border-radius:0}
+select{appearance:none;-webkit-appearance:none;padding-right:24px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 10px) 55%,calc(100% - 5px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+select option{color:#0C0C0E;background:#fff}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--ink)}
+textarea{min-height:80px;resize:vertical}
+.out{display:grid;gap:18px;padding:24px;background:var(--surface);border:1px solid var(--line)}
+.out pre{margin:0;white-space:pre-wrap;font:400 .86rem var(--mono);line-height:1.7}
+@media (max-width:860px){.book{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
 
-footer{background:var(--band);color:var(--onBand);padding-block:56px 32px}
-.foot{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:end}
-.foot img{height:180px;width:auto}
-.foot .big{font-family:var(--display);font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(2.4rem,7vw,5.6rem);line-height:.86}
-.foot .big span{color:var(--red)}
-.foot-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:40px;padding-top:20px;border-top:1px solid var(--bandLine);color:var(--onBandMuted);font-size:.85rem}
-.foot-bot nav{display:flex;gap:18px;flex-wrap:wrap}
-@media (max-width:700px){.foot{grid-template-columns:1fr}.foot img{height:130px}}
+footer{border-top:1px solid var(--line);padding-block:clamp(72px,9vw,120px) 40px}
+.foot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end}
+.foot p.big{font-family:var(--display);font-stretch:125%;font-weight:200;text-transform:uppercase;font-size:clamp(2.2rem,6vw,5rem);line-height:.98}
+.foot img{height:150px;width:auto}
+.foot-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:72px;font:400 .68rem var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.foot-bot nav{display:flex;gap:28px;flex-wrap:wrap}
+.foot-bot a{text-decoration:none}
+.foot-bot a:hover{color:var(--ink)}
+@media (max-width:700px){.foot{grid-template-columns:1fr}.foot img{height:110px}}
 
 /* Modal */
-.modal{position:fixed;inset:0;z-index:100;background:rgba(5,10,20,.88);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.modal-box{width:min(940px,100%);background:var(--surface);color:var(--ink);border-radius:18px;overflow:hidden;max-height:100%;overflow-y:auto;position:relative}
-.screen{position:relative;aspect-ratio:16/9;background:#000}
-.screen img{width:100%;height:100%;object-fit:cover;opacity:.42}
-.screen .msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;padding:20px}
-.screen .msg h3{font-size:clamp(1.4rem,3.6vw,2.4rem)}
-.screen .msg p{font:500 .85rem var(--mono);opacity:.85;margin-top:10px;max-width:46ch}
-.modal-body{padding:20px 24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
-.modal-body p{color:var(--muted);font-size:.92rem}
-.close{position:absolute;right:12px;top:12px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:#070A12;font-size:1.15rem;cursor:pointer;z-index:2}
-.lightbox img{max-width:100%;max-height:82vh;border-radius:12px;display:block;margin:0 auto}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(8,8,10,.9);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.mbox{width:min(920px,100%);background:var(--bg);color:var(--ink);position:relative;max-height:100%;overflow-y:auto}
+.screen{position:relative;background:#000}
+.screen img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.4;filter:grayscale(1)}
+.screen .msg{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;padding:24px}
+.screen h3{font-size:clamp(1.3rem,3.4vw,2.2rem);font-weight:250}
+.screen p{font:400 .72rem var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin-top:14px}
+.mbody{padding:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.mbody p{color:var(--muted);font:400 .72rem var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.close{position:absolute;right:16px;top:16px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(0,0,0,.3);color:#fff;font-size:1rem;cursor:pointer;z-index:2}
+.lightbox img{max-width:100%;max-height:84vh;margin:0 auto}
 
-/* logo swap per theme */
-.lg-dark{display:none}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-light{display:none}:root:not([data-theme="light"]) .lg-dark{display:inline}}
-:root[data-theme="dark"] .lg-light{display:none}:root[data-theme="dark"] .lg-dark{display:inline}
-
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -400,330 +343,310 @@ footer{background:var(--band);color:var(--onBand);padding-block:56px 32px}
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Yoannis Tamayo Movement, inicio">
-      <img src="img/mark-dark.png" alt="">
-      <span><b>YOANNIS TAMAYO</b><small>MOVEMENT</small></span>
+      <img class="lg-l" src="img/mark.png" alt=""><img class="lg-d" src="img/mark-dark.png" alt="">
+      <span>YOANNIS TAMAYO<small>MOVEMENT</small></span>
     </a>
     <ul>
       <li><a href="#duo">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
       <li><a href="#videos">Videos</a></li>
       <li><a href="#formaciones">Formaciones</a></li>
-      <li><a href="#agenda">Agenda</a></li>
-      <li><a href="#servicios">Servicios</a></li>
       <li><a href="#online">Online</a></li>
     </ul>
-    <a class="btn btn-red" href="#booking">Contratar</a>
+    <a class="btn" href="#booking">Contacto</a>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero" style="padding-bottom:0">
-    <canvas id="ribbons" aria-hidden="true"></canvas>
+  <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <p class="kicker"><b>Afro · Rumba · Son · Casino · Timba</b><span>Barcelona · clases online a todo el mundo</span></p>
-          <h1>Baila<span class="r">desde la</span><span class="s">raíz</span></h1>
-          <p class="lede">Yoannis Tamayo, bailarín, maestro y coreógrafo afro-cubano, y Anita llevan la rumba, el son y el casino de Cuba a escuelas y festivales de todo el mundo. Ahora también a tu pantalla.</p>
+          <p class="label r">Afro · Rumba · Son · Casino · Timba</p>
+          <h1>Baila desde<br>la <b>raíz</b><em>.</em></h1>
+          <p class="lede">Yoannis Tamayo y Anita enseñan danza cubana desde Barcelona para el mundo. Formaciones, talleres, clases privadas y una academia online.</p>
           <div class="hero-ctas">
-            <a class="btn btn-red" href="#formaciones">Próximas formaciones</a>
-            <a class="btn btn-line" href="#videos">Ver videos ▸</a>
+            <a class="btn" href="#formaciones">Próximas formaciones</a>
+            <a class="link" href="#videos">Ver videos</a>
           </div>
         </div>
-        <div class="stage">
-          <div class="fan"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 1.8l2.9 7.1 7.6.6-5.8 5 1.8 7.4L12 17.9 5.5 21.9l1.8-7.4-5.8-5 7.6-.6z"/></svg></div>
-          <div class="shot"><img src="img/yoannis-clase.jpg" alt="Yoannis Tamayo enseñando en el escenario de un festival, con el grupo bailando detrás"></div>
-          <span class="pill p1">El rumbero mayor</span>
-          <span class="pill p2">+15 años en escena</span>
-          <span class="pill p3">Live percussion</span>
-        </div>
+        <figure class="portrait" style="margin:0">
+          <img src="img/yoannis-clase.jpg" alt="Yoannis Tamayo enseñando en el escenario de un festival">
+          <figcaption><span class="label"><span class="dot"></span>Yoannis Tamayo</span><span class="label">En clase</span></figcaption>
+        </figure>
       </div>
-      <div class="stats">
-        <div><b>+15</b><span>años enseñando</span></div>
-        <div><b>BCN</b><span>nuestra base</span></div>
-        <div><b>2017</b><span>nace Tamayo Movement</span></div>
-        <div><b>6</b><span>estilos cubanos</span></div>
+      <div class="facts-row">
+        <div><b>15+</b><span class="label">Años enseñando</span></div>
+        <div><b>2017</b><span class="label">Nace el movimiento</span></div>
+        <div><b>BCN</b><span class="label">Nuestra base</span></div>
+        <div><b>6</b><span class="label">Estilos cubanos</span></div>
       </div>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+  <div class="wide">
+    <img src="img/anita-senala.jpg" alt="Anita sonríe y señala a la cámara durante un taller">
+    <span class="cap">Anita · Taller de estilo</span>
+  </div>
 
-  <!-- EL DÚO -->
   <section id="duo">
     <div class="wrap">
-      <div class="sec-head split">
-        <div><p class="eyebrow">El movimiento</p><h2 style="margin-top:14px">Cuba en el cuerpo, el mundo en la pista</h2></div>
-        <p class="lede">Tamayo Movement es la escuela y la compañía de Yoannis Tamayo. Formaciones y clases en Barcelona, talleres en festivales internacionales, clases online para todo el mundo y una comunidad que baila con raíz, técnica y mucho sabor.</p>
+      <div class="head">
+        <p class="label r">El movimiento</p>
+        <h2>Cuba en el cuerpo,<br>el mundo en la pista</h2>
+        <p class="lede">Tamayo Movement es la escuela y la compañía de Yoannis Tamayo. Formaciones en Barcelona, talleres en festivales internacionales y clases online para cualquier país.</p>
       </div>
-      <div class="bios">
-        <article class="bio main">
-          <div class="ph"><img src="img/yoannis-senala.jpg" alt="Yoannis Tamayo guiña el ojo y señala a la cámara" style="object-position:38% 30%"></div>
-          <div class="txt">
-            <span class="role">Fundador · Maestro · Coreógrafo</span>
-            <h3>Yoannis Tamayo</h3>
-            <p>Bailarín afro-cubano con más de 15 años enseñando rumba, columbia, afro y salsa por todo el mundo. Llegó a Europa en 2009, en 2017 fundó Tamayo Movement y hoy tiene su base en Barcelona. Ha sido profesor y coreógrafo de compañías como Afro-Fusion Dance Company y Okan Yoré.</p>
-            <div class="facts">
-              <div><span>Base</span><b>Barcelona, España</b></div>
-              <div><span>Especialidad</span><b>Rumba y Afro-cubano</b></div>
-              <div><span>Escenarios</span><b>Yo Vengo de Cuba · Caribedanza</b></div>
-            </div>
-            <div class="chips"><span class="chip">Afro-cubano</span><span class="chip">Rumba</span><span class="chip">Columbia</span><span class="chip">Son</span><span class="chip">Casino</span><span class="chip">Rueda</span><span class="chip">Timba</span></div>
-          </div>
+      <div class="duo">
+        <article class="person">
+          <img src="img/yoannis-senala.jpg" alt="Yoannis Tamayo guiña el ojo y señala a la cámara" style="object-position:38% 30%">
+          <span class="label">Fundador · Maestro · Coreógrafo</span>
+          <h3>Yoannis Tamayo</h3>
+          <p>Bailarín afro-cubano con más de 15 años enseñando rumba, columbia, afro y salsa por todo el mundo. Llegó a Europa en 2009, en 2017 fundó Tamayo Movement y hoy tiene su base en Barcelona. Ha sido profesor y coreógrafo de Afro-Fusion Dance Company y Okan Yoré.</p>
+          <div class="tags"><span>Afro</span><span>Rumba</span><span>Columbia</span><span>Son</span><span>Casino</span><span>Timba</span></div>
         </article>
-        <article class="bio side">
-          <div class="ph"><img src="img/anita-senala.jpg" alt="Anita sonríe y señala a la cámara" style="object-position:50% 25%"></div>
-          <div class="txt">
-            <span class="role">Maestra · Lady Style</span>
-            <h3>Anita</h3>
-            <p>Estilo, giros y presencia escénica. Su energía contagia la sala desde el primer minuto y convierte la técnica en algo natural.</p>
-            <div class="chips"><span class="chip">Lady Style</span><span class="chip">Giros</span><span class="chip">Pareja</span></div>
-          </div>
+        <article class="person">
+          <img src="img/anita-perfil.jpg" alt="Anita de perfil sonriendo durante un taller" style="object-position:50% 18%">
+          <span class="label">Maestra · Lady Style</span>
+          <h3>Anita</h3>
+          <p>Estilo, giros y presencia escénica. Su energía llena la sala desde el primer minuto y hace que la técnica se sienta natural.</p>
+          <div class="tags"><span>Lady Style</span><span>Giros</span><span>Pareja</span></div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- CLAVE LAB + ESTILOS -->
-  <section class="clave">
+  <section id="servicios" class="rule">
     <div class="wrap">
-      <div class="lab">
-        <div class="sec-head" style="margin:0">
-          <p class="eyebrow">Laboratorio de clave</p>
-          <h2>Todo empieza con la clave</h2>
-          <p class="lede">Antes del primer paso, el oído. Dale play y siente la diferencia entre la clave del son y la de la rumba. Es lo primero que Yoannis te enseña a escuchar.</p>
+      <div class="head">
+        <p class="label r">Servicios</p>
+        <h2>Cómo bailar<br>con nosotros</h2>
+        <p class="lede">En Barcelona, en tu festival o desde tu casa, en cualquier parte del mundo.</p>
+      </div>
+      <div class="svc">
+        <a href="#formaciones"><span class="n">01</span><h3>Formaciones</h3><p>Programas por módulos en Barcelona: afro-cubano, rumba, son, casino y formación de maestros.</p><span class="ar">→</span></a>
+        <a href="#booking" data-opt="Talleres para mi festival o escuela"><span class="n">02</span><h3>Talleres</h3><p>Workshops para festivales, escuelas y eventos en cualquier país, con show y social incluidos.</p><span class="ar">→</span></a>
+        <a href="#booking" data-opt="Clases privadas"><span class="n">03</span><h3>Clases privadas</h3><p>En Barcelona o por videollamada. Técnica, musicalidad y conexión de pareja a tu medida.</p><span class="ar">→</span></a>
+        <a href="#booking" data-opt="Clases online en vivo"><span class="n">04</span><h3>Clases online</h3><p>Clases en vivo para alumnos y escuelas de todo el mundo, en el horario de tu zona.</p><span class="ar">→</span></a>
+        <a href="#online"><span class="n">05</span><h3>Formación online</h3><p>La academia de este sitio: cursos en video por nivel, programa de 8 semanas y clase en vivo semanal.</p><span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="rule">
+    <div class="wrap">
+      <div class="clave-grid">
+        <div>
+          <p class="label r" style="margin-bottom:24px">Escucha primero</p>
+          <h2>Todo empieza<br>con la clave</h2>
+          <p class="lede" style="margin-top:28px">Antes del primer paso, el oído. Compara la clave del son con la de la rumba: una sola nota cambia todo el baile.</p>
         </div>
-        <div class="pad">
-          <div class="pad-top">
-            <div class="seg" role="group" aria-label="Tipo de clave">
+        <div>
+          <div class="clave-ctl">
+            <div class="tog" role="group" aria-label="Tipo de clave">
               <button type="button" id="cSon" aria-pressed="true">Son 3-2</button>
               <button type="button" id="cRumba" aria-pressed="false">Rumba 3-2</button>
             </div>
-            <button class="btn btn-red" id="playClave" type="button" style="padding:10px 18px">▶ Tocar clave</button>
+            <button class="btn ghost" id="playClave" type="button" style="padding:12px 20px">▶ Escuchar</button>
           </div>
           <div class="steps" id="steps" aria-hidden="true"></div>
           <div class="beats" aria-hidden="true"><span>1</span><span></span><span></span><span></span><span>2</span><span></span><span></span><span></span><span>3</span><span></span><span></span><span></span><span>4</span><span></span><span></span><span></span></div>
-          <div class="pad-ctl">
-            <label for="tempo">Tempo <input type="range" id="tempo" min="80" max="200" value="104"> <span class="bpm" id="bpm">104</span> BPM</label>
-          </div>
+          <label class="tempo" for="tempo">Tempo <input type="range" id="tempo" min="80" max="200" value="104"> <b id="bpm">104</b> BPM</label>
         </div>
       </div>
-
       <div class="styles">
-        <div class="style-list" role="tablist" aria-label="Estilos" id="styleList"></div>
-        <div class="style-card" role="tabpanel" id="styleCard" aria-live="polite"></div>
+        <div class="slist" role="tablist" aria-label="Estilos" id="styleList"></div>
+        <div class="scard" role="tabpanel" id="styleCard" aria-live="polite"></div>
       </div>
     </div>
   </section>
 
-  <!-- VIDEOS -->
-  <section id="videos">
+  <section id="videos" class="rule">
     <div class="wrap">
-      <div class="sec-head split">
-        <div><p class="eyebrow">En escena</p><h2 style="margin-top:14px">Míralo bailar</h2></div>
-        <p class="lede">Shows, clases y entrevistas. Cada video abre en YouTube.</p>
+      <div class="head">
+        <p class="label r">En escena</p>
+        <h2>Míralo bailar</h2>
+        <p class="lede">Shows, clases y entrevistas. Cada video se abre en YouTube.</p>
       </div>
-      <div class="feat">
-        <a class="vcard big" href="https://www.youtube.com/watch?v=hfln5aEA96c" target="_blank" rel="noopener">
-          <img class="bgimg" src="img/yoannis-clase.jpg" alt="" style="object-position:50% 25%">
-          <span class="yt" aria-hidden="true"></span>
-          <div class="in"><div class="meta"><span>Show</span><span>Yo Vengo de Cuba · 2016</span></div><h3>Great Single Performance</h3></div>
+      <div class="vfeat">
+        <a class="v" href="https://www.youtube.com/watch?v=hfln5aEA96c" target="_blank" rel="noopener">
+          <div class="frame"><img src="img/yoannis-clase.jpg" alt="" style="object-position:50% 25%"><span class="play"><span></span></span></div>
+          <div class="meta"><span class="label">Show · Yo Vengo de Cuba</span><span class="label">2016</span></div>
+          <h4>Great Single Performance</h4>
         </a>
-        <div class="stack">
-          <a class="vcard poster red" href="https://www.youtube.com/watch?v=23d1kt6yR78" target="_blank" rel="noopener">
-            <span class="year" aria-hidden="true">2018</span><span class="yt" aria-hidden="true"></span>
-            <div class="in"><div class="meta"><span>Show</span><span>Congress</span></div><h3>Yo Vengo de Cuba · Cuban Salsa Power</h3></div>
+        <div class="vside">
+          <a class="v" href="https://www.youtube.com/watch?v=23d1kt6yR78" target="_blank" rel="noopener">
+            <div class="type"><b>2018</b><span class="play"><span></span></span></div>
+            <span class="label">Show · Congress</span>
+            <h4>Yo Vengo de Cuba · Cuban Salsa Power</h4>
           </a>
-          <a class="vcard poster ink" href="https://www.youtube.com/watch?v=unCyHZkjrdQ" target="_blank" rel="noopener">
-            <span class="year" aria-hidden="true">2019</span><span class="yt" aria-hidden="true"></span>
-            <div class="in"><div class="meta"><span>Show</span><span>Festival</span></div><h3>Festival Caribedanza · Show DC</h3></div>
+          <a class="v" href="https://www.youtube.com/watch?v=unCyHZkjrdQ" target="_blank" rel="noopener">
+            <div class="type"><b>2019</b><span class="play"><span></span></span></div>
+            <span class="label">Show · Festival</span>
+            <h4>Caribedanza · Show Yoannis Tamayo</h4>
           </a>
         </div>
       </div>
       <div class="vgrid">
-        <a class="vcard" href="https://www.youtube.com/watch?v=HQPsAjZQzck" target="_blank" rel="noopener">
-          <img class="bgimg" src="img/yoannis-senala.jpg" alt="" style="object-position:40% 30%"><span class="yt" aria-hidden="true"></span>
-          <div class="in"><div class="meta"><span>Clase</span><span>Musicalidad</span></div><h3>Salsa vs rumba: la diferencia</h3></div>
+        <a class="v" href="https://www.youtube.com/watch?v=HQPsAjZQzck" target="_blank" rel="noopener">
+          <div class="frame"><img src="img/yoannis-senala.jpg" alt="" style="object-position:40% 30%"><span class="play"><span></span></span></div>
+          <span class="label">Clase · Musicalidad</span><h4>Salsa vs. rumba: la diferencia</h4>
         </a>
-        <a class="vcard poster blue" href="https://www.youtube.com/watch?v=UvsfVcOx1jU" target="_blank" rel="noopener">
-          <span class="year" aria-hidden="true">C+R</span><span class="yt" aria-hidden="true"></span>
-          <div class="in"><div class="meta"><span>Pareja</span><span>con Ismaray</span></div><h3>Casino con rumba</h3></div>
+        <a class="v" href="https://www.youtube.com/watch?v=UvsfVcOx1jU" target="_blank" rel="noopener">
+          <div class="type"><b>C + R</b><span class="play"><span></span></span></div>
+          <span class="label">Pareja · con Ismaray</span><h4>Casino con rumba</h4>
         </a>
-        <a class="vcard" href="https://www.youtube.com/watch?v=X5my45J6cb8" target="_blank" rel="noopener">
-          <img class="bgimg" src="img/anita-perfil.jpg" alt="" style="object-position:50% 20%"><span class="yt" aria-hidden="true"></span>
-          <div class="in"><div class="meta"><span>Clase</span><span>Timba</span></div><h3>Pasos libres · musicalidad timba</h3></div>
+        <a class="v" href="https://www.youtube.com/watch?v=X5my45J6cb8" target="_blank" rel="noopener">
+          <div class="frame"><img src="img/anita-perfil.jpg" alt="" style="object-position:50% 20%"><span class="play"><span></span></span></div>
+          <span class="label">Clase · Timba</span><h4>Pasos libres y musicalidad</h4>
         </a>
-        <a class="vcard poster red" href="https://www.youtube.com/watch?v=PMrx72gniPc" target="_blank" rel="noopener">
-          <span class="year" aria-hidden="true">SON</span><span class="yt" aria-hidden="true"></span>
-          <div class="in"><div class="meta"><span>Clase</span><span>Son cubano</span></div><h3>Son cubano en Orishas Dance</h3></div>
+        <a class="v" href="https://www.youtube.com/watch?v=PMrx72gniPc" target="_blank" rel="noopener">
+          <div class="type"><b>Son</b><span class="play"><span></span></span></div>
+          <span class="label">Clase · Son cubano</span><h4>Clase de son en Orishas Dance</h4>
         </a>
       </div>
-      <div class="yt-cta">
-        <div><b>Yoannis Tamayo Movement en YouTube</b><p>Shows, coreografías y workshops. Suscríbete para no perderte nada.</p></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=kPHUpwympWM" target="_blank" rel="noopener">Ver entrevista</a>
-          <a class="btn btn-red" href="https://www.youtube.com/@yoannistamayomovement5330" target="_blank" rel="noopener">Ir al canal ▸</a>
+      <div class="channel">
+        <div><p class="label" style="margin-bottom:8px">YouTube</p><h3>Yoannis Tamayo Movement</h3></div>
+        <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap">
+          <a class="link" href="https://www.youtube.com/watch?v=kPHUpwympWM" target="_blank" rel="noopener">Entrevista</a>
+          <a class="btn" href="https://www.youtube.com/@yoannistamayomovement5330" target="_blank" rel="noopener">Ir al canal</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FORMACIONES -->
-  <section id="formaciones" class="agenda">
+  <section id="formaciones" class="rule">
     <div class="wrap">
-      <div class="sec-head split">
-        <div><p class="eyebrow">Próximas formaciones</p><h2 style="margin-top:14px">Aprende con método</h2></div>
-        <p class="lede">Formaciones por módulos para bailarines y maestros que quieren entender la cultura detrás de cada paso. Plazas limitadas en cada grupo.</p>
+      <div class="head">
+        <p class="label r">Próximas formaciones</p>
+        <h2>Aprende<br>con método</h2>
+        <p class="lede">Programas por módulos para bailarines y maestros que quieren entender la cultura detrás de cada paso. Plazas limitadas.</p>
       </div>
       <div class="forms" id="forms"></div>
-      <p class="ex">Fechas, sedes y plazas de ejemplo. Se reemplazan con el calendario real de Tamayo Movement.</p>
+      <p class="note">Fechas y plazas de ejemplo, pendientes de confirmar.</p>
     </div>
   </section>
 
-  <!-- AGENDA -->
-  <section id="agenda">
+  <section id="agenda" class="rule">
     <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Agenda</p><h2>Dónde vamos a bailar</h2></div>
-      <div class="agenda-grid">
-        <div class="cal">
+      <div class="ag">
+        <div>
+          <p class="label r" style="margin-bottom:24px">Agenda</p>
+          <h2 style="margin-bottom:56px">Dónde vamos<br>a bailar</h2>
           <div class="cal-top">
             <h3 id="calTitle">Noviembre 2026</h3>
-            <div class="cal-nav"><button class="icon-btn" id="prevM" aria-label="Mes anterior">←</button><button class="icon-btn" id="nextM" aria-label="Mes siguiente">→</button></div>
+            <div class="cal-nav"><button id="prevM" aria-label="Mes anterior">←</button><button id="nextM" aria-label="Mes siguiente">→</button></div>
           </div>
-          <div class="dow"><span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span></div>
+          <div class="dow"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
           <div class="days" id="days"></div>
-          <div class="legend"><span><i style="background:var(--red)"></i>Formación</span><span><i style="background:var(--blue)"></i>Festival</span><span><i style="background:var(--ink)"></i>Online en vivo</span><span><i style="background:var(--sky)"></i>Social</span></div>
-          <p class="ex">Fechas de ejemplo.</p>
         </div>
-        <div><p class="eyebrow" id="evLabel" style="margin-bottom:14px">Eventos del mes</p><div class="events" id="events"></div></div>
-      </div>
-      <div class="fests"><em>Festivales y eventos</em><span>YoRumba Festival</span><span>Quinto Contigo</span><span>Rumbata</span><span>Empire Dance</span><span>Walk and Dance</span><span>Yo Vengo de Cuba</span><span>AloCubano</span></div>
-    </div>
-  </section>
-
-  <!-- ESCUELA -->
-  <section id="escuela" class="agenda">
-    <div class="wrap">
-      <div class="sec-head split">
-        <div><p class="eyebrow">Clases semanales</p><h2 style="margin-top:14px">La escuela en Barcelona</h2></div>
-        <p class="lede">De lunes a miércoles. Salsa para empezar, timba fusión, son tradicional y afro-cubano con percusionista en vivo dos veces al mes.</p>
-      </div>
-      <div class="school">
-        <div class="week">
-          <div class="dayc"><b>Lunes</b><span>Salsa cubana · Principiantes</span><span>Rueda de casino</span></div>
-          <div class="dayc"><b>Martes</b><span class="r">Timba Fusion</span><span>Son tradicional</span></div>
-          <div class="dayc"><b>Miércoles</b><span class="r">Afro-cubano · Int./Av.</span><span class="r">Rumba con percusión en vivo</span></div>
-        </div>
-        <div class="addr">
-          <img src="img/mark-dark.png" alt="">
-          <span class="role" style="color:#FF6B6F">Sede Barcelona</span>
-          <h3>Barcelona</h3>
-          <p>Estudio y dirección por anunciar<br>Barcelona, España</p>
-          <p style="font-size:.85rem">¿No estás en Barcelona? Entrena con nosotros online desde cualquier país.</p>
-          <a class="btn btn-red" href="#booking" style="justify-self:start">Reservar clase de prueba</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section id="servicios">
-    <div class="wrap">
-      <div class="sec-head split"><div><p class="eyebrow">Servicios</p><h2 style="margin-top:14px">Cómo bailar con nosotros</h2></div><p class="lede">En Barcelona, en tu festival o desde tu casa en cualquier parte del mundo.</p></div>
-      <div class="svc">
-        <article><span class="sn">01</span><h3>Formaciones</h3><p>Programas por módulos en Barcelona: afro-cubano, rumba, son, casino y formación de maestros. Método, cultura y técnica.</p><span class="for">Bailarines y maestros</span><a href="#formaciones" class="more">Ver próximas fechas →</a></article>
-        <article><span class="sn">02</span><h3>Talleres</h3><p>Workshops para festivales, escuelas y eventos en cualquier país. Show y animación de social incluidos.</p><span class="for">Festivales y escuelas</span><a href="#booking" class="more">Contratar →</a></article>
-        <article><span class="sn">03</span><h3>Clases privadas</h3><p>En Barcelona o por videollamada. Corrección fina de técnica, musicalidad y conexión de pareja.</p><span class="for">Individuos y parejas</span><a href="#booking" class="more">Reservar →</a></article>
-        <article><span class="sn">04</span><h3>Clases online a nivel global</h3><p>Clases en vivo por videollamada para alumnos y escuelas de todo el mundo, con horario adaptado a tu zona.</p><span class="for">Desde cualquier país</span><a href="#booking" class="more">Apuntarme →</a></article>
-        <article><span class="sn">05</span><h3>Formación online</h3><p>La plataforma de Tamayo Movement: cursos en video por nivel, programa de 8 semanas y clase en vivo semanal.</p><span class="for">En este sitio web</span><a href="#online" class="more">Entrar a la academia →</a></article>
-        <article class="cta-card"><h3>¿Buscas algo a medida?</h3><p>Coreografías, shows y proyectos especiales. Cuéntanos tu idea.</p><a class="btn btn-red" href="#booking" style="justify-self:start">Escribirnos</a></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ONLINE -->
-  <section id="online" class="academy">
-    <div class="wrap">
-      <div class="sec-head split">
-        <div><p class="eyebrow">Formación online</p><h2 style="margin-top:14px">La academia en tu bolsillo</h2></div>
-        <p class="lede">Cursos en video por nivel, clase en vivo cada semana y un programa guiado de 8 semanas. Entrena desde cualquier ciudad.</p>
-      </div>
-      <div class="app" role="region" aria-label="Vista previa de la plataforma de video">
-        <div class="app-bar">
-          <div class="who"><img src="img/mark-dark.png" alt=""><span>Hola, bailador · <b>Programa 8 semanas</b></span></div>
-          <div class="prog"><span>Semana 3 de 8</span><span class="bar"><i></i></span><span>38%</span></div>
-        </div>
-        <div class="filters" id="filters"></div>
-        <div class="vids" id="vids"></div>
-      </div>
-      <div class="program">
         <div>
-          <p class="eyebrow">Programa de entrenamiento</p>
-          <h2 style="font-size:clamp(2rem,4.6vw,3.2rem);margin-top:12px">De la clave a la rueda en 8 semanas</h2>
-          <p class="lede" style="margin-top:14px">3 lecciones por semana de 15–20 minutos, práctica guiada y clase en vivo con corrección. Avanzas cuando dominas la figura.</p>
+          <p class="label" id="evLabel" style="margin-bottom:24px">Este mes</p>
+          <div class="evs" id="events"></div>
+          <p class="note">Fechas de ejemplo.</p>
         </div>
-        <div class="weeks">
-          <div class="wk done"><b>Semanas 1–2</b><h4>Clave y base</h4><p>Escuchar la clave, paso básico, guapea, dile que no y enchufla.</p></div>
-          <div class="wk done"><b>Semana 3</b><h4>Son: la raíz</h4><p>Postura, guía y apertura. De dónde viene el casino.</p></div>
-          <div class="wk"><b>Semanas 4–5</b><h4>Figuras con sabor</h4><p>Sombrero, setenta, vacílala y exhíbela. Combinaciones.</p></div>
-          <div class="wk"><b>Semana 6</b><h4>Rumba y afro</h4><p>Guaguancó, vacunao y movimiento de los orishas aplicados al casino.</p></div>
-          <div class="wk"><b>Semanas 7–8</b><h4>Timba y tu primera rueda</h4><p>Pasos libres, cantar la rueda y graduación en vivo.</p></div>
+      </div>
+      <div class="fests"><span class="label">Han bailado en</span><span>Yo Vengo de Cuba</span><span>Caribedanza</span><span>YoRumba Festival</span><span>Quinto Contigo</span><span>Rumbata</span><span>AloCubano</span></div>
+    </div>
+  </section>
+
+  <section id="online" class="online">
+    <div class="wrap">
+      <div class="head">
+        <p class="label r">Formación online</p>
+        <h2>La academia,<br>donde estés</h2>
+        <p class="lede">Cursos en video por nivel, una clase en vivo cada semana y un programa guiado de ocho semanas.</p>
+      </div>
+      <div class="app" role="region" aria-label="Vista previa de la plataforma">
+        <div class="app-top"><span>Hola · Programa 8 semanas</span><div class="prog"><span>Semana 3 / 8</span><span class="bar"><i></i></span><span>38%</span></div></div>
+        <div class="filters" id="filters"></div>
+        <div class="lessons" id="vids"></div>
+      </div>
+      <div class="prog-grid">
+        <div>
+          <p class="label r" style="margin-bottom:24px">Programa</p>
+          <h2>De la clave<br>a la rueda</h2>
+          <p class="lede" style="margin-top:28px">Tres lecciones por semana de 15 a 20 minutos, práctica guiada y una clase en vivo con corrección.</p>
+        </div>
+        <div>
+          <div class="wk done"><b>Sem. 1–2</b><div><h4>Clave y base</h4><p>Escuchar la clave, paso básico, guapea, dile que no y enchufla.</p></div></div>
+          <div class="wk done"><b>Sem. 3</b><div><h4>Son, la raíz</h4><p>Postura, guía y apertura. De dónde viene el casino.</p></div></div>
+          <div class="wk"><b>Sem. 4–5</b><div><h4>Figuras</h4><p>Sombrero, setenta, vacílala y exhíbela.</p></div></div>
+          <div class="wk"><b>Sem. 6</b><div><h4>Rumba y afro</h4><p>Guaguancó, vacunao y los orishas aplicados al casino.</p></div></div>
+          <div class="wk"><b>Sem. 7–8</b><div><h4>Timba y rueda</h4><p>Pasos libres, cantar la rueda y graduación en vivo.</p></div></div>
         </div>
       </div>
       <div class="plans">
-        <div class="plan"><h3>Curso suelto</h3><div class="price">€9</div><ul><li>Un curso corto a elegir</li><li>Acceso de por vida</li><li>Sin suscripción</li></ul><a class="btn" href="#booking">Quiero este</a></div>
-        <div class="plan star"><h3>Membresía</h3><div class="price">€19 <small>/ mes</small></div><ul><li>Toda la biblioteca de video</li><li>Clase en vivo semanal</li><li>Programa 8 semanas</li><li>Comunidad privada</li></ul><a class="btn" href="#booking">Unirme</a></div>
-        <div class="plan"><h3>Escuelas</h3><div class="price">A medida</div><ul><li>Licencia para tus alumnos</li><li>Material para maestros</li><li>Visita presencial opcional</li></ul><a class="btn" href="#booking">Hablemos</a></div>
+        <div class="plan"><span class="label">Curso suelto</span><div class="price">€9</div><ul><li>Un curso a elegir</li><li>Acceso de por vida</li></ul><a class="link" href="#booking" data-opt="Formación online (plataforma)">Elegir</a></div>
+        <div class="plan star"><span class="label">Membresía</span><div class="price">€19 <small>/ mes</small></div><ul><li>Toda la biblioteca</li><li>Clase en vivo semanal</li><li>Programa 8 semanas</li></ul><a class="link" href="#booking" data-opt="Formación online (plataforma)">Unirme</a></div>
+        <div class="plan"><span class="label">Escuelas</span><div class="price">A medida</div><ul><li>Licencia para alumnos</li><li>Material para maestros</li></ul><a class="link" href="#booking" data-opt="Formación online (plataforma)">Hablemos</a></div>
       </div>
-      <p class="ex" style="color:rgba(255,255,255,.75);background:rgba(227,27,35,.18)">Precios y lecciones de ejemplo, listos para ajustar.</p>
+      <p class="note" style="color:var(--onInvMuted)">Precios y lecciones de ejemplo.</p>
     </div>
   </section>
 
-  <!-- GALERÍA -->
-  <section id="galeria">
+  <section id="escuela">
     <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Galería</p><h2>Así se vive una clase Tamayo</h2></div>
-      <div class="gal">
-        <figure class="g1" data-src="img/yoannis-clase.jpg"><img src="img/yoannis-clase.jpg" alt="Yoannis enseñando en el escenario"><figcaption>Foto: Pablo Rios Photography</figcaption></figure>
-        <figure class="g2" data-src="img/anita-senala.jpg"><img src="img/anita-senala.jpg" alt="Anita animando la clase" style="object-position:50% 30%"><figcaption>Foto: Panda Cam</figcaption></figure>
-        <figure class="g3" data-src="img/anita-perfil.jpg"><img src="img/anita-perfil.jpg" alt="Anita en un taller de estilo"><figcaption>Foto: Pablo Rios Photography</figcaption></figure>
-        <figure class="g4" data-src="img/yoannis-senala.jpg"><img src="img/yoannis-senala.jpg" alt="Yoannis señala a la cámara" style="object-position:40% 30%"><figcaption>Foto: Panda Cam</figcaption></figure>
-        <div class="g4 logo-tile" style="border-radius:12px"><img src="img/logo-dark.png" alt="Logo de Yoannis Tamayo Movement"></div>
+      <div class="school">
+        <div>
+          <p class="label r" style="margin-bottom:24px">Clases semanales</p>
+          <h2 style="margin-bottom:56px">La escuela<br>en Barcelona</h2>
+          <div>
+            <div class="wd"><b>Lunes</b><div><span>Salsa cubana · principiantes</span><span>Rueda de casino</span></div></div>
+            <div class="wd"><b>Martes</b><div><span>Timba fusión</span><span>Son tradicional</span></div></div>
+            <div class="wd"><b>Miércoles</b><div><span>Afro-cubano · intermedio / avanzado</span><span>Rumba con percusión en vivo</span></div></div>
+          </div>
+        </div>
+        <div class="place">
+          <img class="lg-l" src="img/logo.png" alt=""><img class="lg-d" src="img/logo-dark.png" alt="">
+          <h3>Barcelona</h3>
+          <p>Estudio, dirección y horarios por anunciar. ¿No estás en Barcelona? Entrena online desde cualquier país.</p>
+          <a class="link" href="#booking" data-opt="Clases en Barcelona" style="justify-self:start">Clase de prueba</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- BOOKING -->
-  <section id="booking" class="agenda">
-    <div class="wrap book-grid">
+  <section id="galeria" class="rule">
+    <div class="wrap">
+      <div class="head"><p class="label r">Galería</p><h2>Así se vive<br>una clase</h2></div>
+      <div class="gal">
+        <figure class="a" data-src="img/yoannis-clase.jpg"><img src="img/yoannis-clase.jpg" alt="Yoannis enseñando en el escenario"><figcaption class="label">Foto · Pablo Rios Photography</figcaption></figure>
+        <figure class="b" data-src="img/anita-senala.jpg"><img src="img/anita-senala.jpg" alt="Anita animando la clase"><figcaption class="label">Foto · Panda Cam</figcaption></figure>
+        <figure class="c" data-src="img/yoannis-senala.jpg"><img src="img/yoannis-senala.jpg" alt="Yoannis señala a la cámara"><figcaption class="label">Foto · Panda Cam</figcaption></figure>
+        <figure class="e" data-src="img/anita-perfil.jpg"><img src="img/anita-perfil.jpg" alt="Anita en un taller de estilo"><figcaption class="label">Foto · Pablo Rios Photography</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="rule">
+    <div class="wrap book">
       <div>
-        <p class="eyebrow">Contrataciones e inscripciones</p>
-        <h2 style="margin-top:14px">¿Bailamos?</h2>
-        <p class="lede" style="margin-top:14px">Cuéntanos qué necesitas y se arma tu mensaje listo para enviar.</p>
-        <div class="contact-list">
-          <div><span>Instagram</span><a href="https://www.instagram.com/yoannistamayo.official/" target="_blank" rel="noopener">@yoannistamayo.official</a></div>
-          <div><span>YouTube</span><a href="https://www.youtube.com/@yoannistamayomovement5330" target="_blank" rel="noopener">@yoannistamayomovement</a></div>
-          <div><span>WhatsApp</span><b>Agregar número</b></div>
-          <div><span>Email</span><b>Agregar correo</b></div>
+        <p class="label r" style="margin-bottom:24px">Contacto</p>
+        <h2>Hablemos</h2>
+        <p class="lede" style="margin-top:28px">Cuéntanos qué buscas y te dejamos el mensaje listo para enviar.</p>
+        <div class="contacts">
+          <div><span class="label">Instagram</span><a href="https://www.instagram.com/yoannistamayo.official/" target="_blank" rel="noopener">@yoannistamayo.official</a></div>
+          <div><span class="label">YouTube</span><a href="https://www.youtube.com/@yoannistamayomovement5330" target="_blank" rel="noopener">Yoannis Tamayo Movement</a></div>
+          <div><span class="label">WhatsApp</span><span>Por agregar</span></div>
+          <div><span class="label">Email</span><span>Por agregar</span></div>
         </div>
       </div>
       <form id="bookForm" novalidate>
         <div class="row">
-          <label for="fName">Tu nombre<input id="fName" required placeholder="Nombre y apellido"></label>
-          <label for="fCity">Ciudad / país<input id="fCity" placeholder="Ej. Ciudad de México"></label>
+          <label for="fName">Nombre<input id="fName" required placeholder="Tu nombre"></label>
+          <label for="fCity">Ciudad<input id="fCity" placeholder="Dónde estás"></label>
         </div>
         <div class="row">
-          <label for="fType">¿Qué buscas?
-            <select id="fType"></select>
-          </label>
+          <label for="fType">Me interesa<select id="fType"></select></label>
           <label for="fDate">Fecha tentativa<input id="fDate" type="date"></label>
         </div>
-        <label for="fMsg">Detalles<textarea id="fMsg" placeholder="Horas, niveles, tamaño del grupo..."></textarea></label>
-        <button class="btn btn-red" type="submit" style="justify-self:start">Armar mi mensaje</button>
+        <label for="fMsg">Detalles<textarea id="fMsg" placeholder="Horas, nivel, tamaño del grupo…"></textarea></label>
+        <button class="btn" type="submit" style="justify-self:start">Preparar mensaje</button>
         <div class="out" id="out" hidden>
           <pre id="outText"></pre>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-ink" type="button" id="copyBtn">Copiar mensaje</button>
-            <a class="btn btn-ghost" href="https://www.instagram.com/yoannistamayo.official/" target="_blank" rel="noopener">Abrir Instagram</a>
+          <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:center">
+            <button class="btn" type="button" id="copyBtn">Copiar</button>
+            <a class="link" href="https://www.instagram.com/yoannistamayo.official/" target="_blank" rel="noopener">Abrir Instagram</a>
           </div>
         </div>
       </form>
@@ -734,21 +657,21 @@ footer{background:var(--band);color:var(--onBand);padding-block:56px 32px}
 <footer>
   <div class="wrap">
     <div class="foot">
-      <img src="img/logo-dark.png" alt="Yoannis Tamayo Movement">
-      <p class="big">Baila desde<br>la <span>raíz</span>.</p>
+      <p class="big">Baila desde<br>la raíz<em>.</em></p>
+      <div><img class="lg-l" src="img/logo.png" alt="Yoannis Tamayo Movement"><img class="lg-d" src="img/logo-dark.png" alt="Yoannis Tamayo Movement"></div>
     </div>
     <div class="foot-bot">
-      <span>© 2026 Yoannis Tamayo Movement · Yoannis Tamayo &amp; Anita</span>
+      <span>© 2026 Yoannis Tamayo Movement · Barcelona</span>
       <nav><a href="https://www.instagram.com/yoannistamayo.official/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@yoannistamayomovement5330" target="_blank" rel="noopener">YouTube</a><a href="#booking">Contacto</a></nav>
     </div>
   </div>
 </footer>
 
 <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
-  <div class="modal-box">
+  <div class="mbox">
     <button class="close" id="mClose" aria-label="Cerrar">✕</button>
     <div class="screen"><img id="mImg" src="" alt=""><div class="msg"><div><h3 id="mTitle"></h3><p id="mSub"></p></div></div></div>
-    <div class="modal-body"><p id="mDesc"></p><a class="btn btn-red" href="#online" id="mCta">Ver planes</a></div>
+    <div class="mbody"><p id="mDesc"></p><a class="link" href="#online" id="mCta">Ver planes</a></div>
   </div>
 </div>
 <div class="modal lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
@@ -757,75 +680,37 @@ footer{background:var(--band);color:var(--onBand);padding-block:56px 32px}
 
 <script>
 (function(){
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* Ribbons: las cintas azules del logo, en movimiento */
-  const cv=document.getElementById('ribbons'),cx=cv.getContext('2d');let W=0,H=0,t0=0;
-  function size(){const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
-  function draw(t){
-    cx.clearRect(0,0,W,H);
-    const bands=[{y:.18,a:.10,c:'255,255,255',w:44},{y:.42,a:.07,c:'46,107,209',w:90},{y:.66,a:.10,c:'255,255,255',w:30},{y:.86,a:.08,c:'227,27,35',w:16}];
-    bands.forEach((b,i)=>{
-      cx.beginPath();
-      for(let x=-20;x<=W+20;x+=16){
-        const y=H*b.y+Math.sin(x/220+t/1800+i)*36+Math.sin(x/90+t/1300+i*2)*10;
-        x===-20?cx.moveTo(x,y):cx.lineTo(x,y);
-      }
-      cx.strokeStyle=`rgba(${b.c},${b.a})`;cx.lineWidth=b.w;cx.lineCap='round';cx.stroke();
-    });
-    if(!reduce) requestAnimationFrame(draw);
-  }
-  size();addEventListener('resize',size);requestAnimationFrame(draw);
-
-  /* Ticker */
-  const calls=["Guaguancó","Columbia","Yambú","Son montuno","Dile que no","Enchufla","Setenta","Vacílala","Timba","Yemayá","Changó","Oshún","Rueda de casino","Despelote"];
-  document.getElementById('ticker').innerHTML=[...calls,...calls].map(c=>`<span>${c}</span>`).join('');
-
-  /* Clave lab */
+  /* Clave */
   const PAT={son:[0,3,6,10,12],rumba:[0,3,7,10,12]};let pat='son',playing=false,step=0,timer=null,ac=null;
   const stEl=document.getElementById('steps');stEl.innerHTML=Array.from({length:16},()=>'<i></i>').join('');
   const cells=[...stEl.children];
-  function paint(){cells.forEach((c,i)=>c.classList.toggle('hit',PAT[pat].includes(i)))}
+  const paint=()=>cells.forEach((c,i)=>c.classList.toggle('hit',PAT[pat].includes(i)));
   function setPat(p){pat=p;document.getElementById('cSon').setAttribute('aria-pressed',p==='son');document.getElementById('cRumba').setAttribute('aria-pressed',p==='rumba');paint()}
-  document.getElementById('cSon').onclick=()=>setPat('son');
-  document.getElementById('cRumba').onclick=()=>setPat('rumba');
-  const tempo=document.getElementById('tempo'),bpmEl=document.getElementById('bpm');
-  tempo.oninput=()=>{bpmEl.textContent=tempo.value;if(playing){clearInterval(timer);timer=setInterval(tick,interval())}};
-  const interval=()=>60000/(+tempo.value)/4;
-  function click(accent){
-    if(!ac)return;const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;
-    o.type='sine';o.frequency.setValueAtTime(accent?2400:900,n);
-    g.gain.setValueAtTime(accent?.55:.12,n);g.gain.exponentialRampToValueAtTime(.001,n+(accent?.09:.04));
-    o.connect(g).connect(ac.destination);o.start(n);o.stop(n+.1);
-  }
-  function tick(){
-    cells.forEach(c=>c.classList.remove('now'));cells[step].classList.add('now');
-    const hit=PAT[pat].includes(step);if(hit)click(true);else if(step%4===0)click(false);
-    step=(step+1)%16;
-  }
+  document.getElementById('cSon').onclick=()=>setPat('son');document.getElementById('cRumba').onclick=()=>setPat('rumba');
+  const tempo=document.getElementById('tempo'),bpm=document.getElementById('bpm');
+  const iv=()=>60000/(+tempo.value)/4;
+  tempo.oninput=()=>{bpm.textContent=tempo.value;if(playing){clearInterval(timer);timer=setInterval(tick,iv())}};
+  function click(acc){if(!ac)return;const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type='sine';o.frequency.setValueAtTime(acc?2400:900,n);g.gain.setValueAtTime(acc?.5:.1,n);g.gain.exponentialRampToValueAtTime(.001,n+(acc?.09:.04));o.connect(g).connect(ac.destination);o.start(n);o.stop(n+.1)}
+  function tick(){cells.forEach(c=>c.classList.remove('now'));cells[step].classList.add('now');if(PAT[pat].includes(step))click(true);else if(step%4===0)click(false);step=(step+1)%16}
   const pb=document.getElementById('playClave');
-  pb.onclick=()=>{
-    try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume()}catch(_){}
-    playing=!playing;
-    if(playing){step=0;tick();timer=setInterval(tick,interval());pb.textContent='■ Detener'}
-    else{clearInterval(timer);cells.forEach(c=>c.classList.remove('now'));pb.textContent='▶ Tocar clave'}
-  };
+  pb.onclick=()=>{try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume()}catch(_){}
+    playing=!playing;if(playing){step=0;tick();timer=setInterval(tick,iv());pb.textContent='■ Detener'}else{clearInterval(timer);cells.forEach(c=>c.classList.remove('now'));pb.textContent='▶ Escuchar'}};
   paint();
 
   /* Estilos */
   const STY=[
-    {n:"Afro-cubano",tag:"La raíz yoruba",d:"Los movimientos de los orishas: Yemayá y el mar, Changó y el fuego, Oshún y el río. Es la base de todo lo que se baila en Cuba y el terreno donde Yoannis más brilla.",k:["Yemayá","Changó","Oshún","Eleguá","Ogún"]},
-    {n:"Rumba",tag:"La fiesta del barrio",d:"Guaguancó, yambú y columbia. Juego, improvisación y diálogo con los tambores. Clases con percusionista en vivo para bailarla como se baila en La Habana y Matanzas.",k:["Guaguancó","Yambú","Columbia","Rumba abierta","Vacunao"]},
-    {n:"Son",tag:"El origen del casino",d:"Postura, guía y apertura. El son es el abuelo de la salsa cubana: si lo entiendes, tu casino cambia por completo.",k:["Son montuno","Guía","Apertura","Postura"]},
-    {n:"Casino",tag:"La salsa cubana",d:"Baile de pareja con giros circulares, figuras y mucho juego. Desde el paso básico hasta combinaciones con sabor.",k:["Dile que no","Enchufla","Setenta","Sombrero"]},
-    {n:"Rueda",tag:"Todos al centro",d:"Varias parejas en círculo y un cantante que dirige las figuras. Aprende a seguirla y a cantarla con seguridad.",k:["Dame","Prima","Kentucky","Montaña"]},
-    {n:"Timba",tag:"La Cuba de hoy",d:"La evolución más intensa del casino: despelote, pasos libres y musicalidad. Timba Fusion mezcla guaguancó, afro, pachanga y reguetón.",k:["Despelote","Pasos libres","Timba Fusion","Musicalidad"]}
+    {n:"Afro-cubano",tag:"Raíz yoruba",d:"Los movimientos de los orishas: Yemayá y el mar, Changó y el fuego, Oshún y el río. La base de todo lo que se baila en Cuba, y el terreno donde Yoannis más brilla."},
+    {n:"Rumba",tag:"La fiesta del barrio",d:"Guaguancó, yambú y columbia. Juego, improvisación y diálogo con los tambores, con percusionista en vivo en clase."},
+    {n:"Son",tag:"El origen del casino",d:"Postura, guía y apertura. El son es el abuelo de la salsa cubana: si lo entiendes, tu casino cambia por completo."},
+    {n:"Casino",tag:"La salsa cubana",d:"Baile de pareja con giros circulares, figuras y mucho juego. Del paso básico a combinaciones con sabor."},
+    {n:"Rueda",tag:"Todos al centro",d:"Parejas en círculo y una voz que canta las figuras. Aprende a seguirla y a cantarla con seguridad."},
+    {n:"Timba",tag:"La Cuba de hoy",d:"La evolución más intensa del casino: despelote, pasos libres y musicalidad. Timba fusión mezcla guaguancó, afro, pachanga y reguetón."}
   ];
-  const sl=document.getElementById('styleList'),sc=document.getElementById('styleCard');let si=1;
+  const sl=document.getElementById('styleList'),sc=document.getElementById('styleCard');let si=0;
   function renderS(){
-    sl.innerHTML=STY.map((s,i)=>`<button role="tab" id="st${i}" aria-selected="${i===si}" aria-controls="styleCard" tabindex="${i===si?0:-1}" data-i="${i}">${s.n}</button>`).join('');
+    sl.innerHTML=STY.map((s,i)=>`<button role="tab" id="st${i}" aria-selected="${i===si}" aria-controls="styleCard" tabindex="${i===si?0:-1}" data-i="${i}">${s.n}<small>0${i+1}</small></button>`).join('');
     const s=STY[si];sc.setAttribute('aria-labelledby','st'+si);
-    sc.innerHTML=`<span class="tagline">${s.tag}</span><h3>${s.n}</h3><p>${s.d}</p><ul>${s.k.map(x=>`<li>${x}</li>`).join('')}</ul><a class="btn btn-red" href="#formaciones" style="justify-self:start;margin-top:8px">Formaciones de ${s.n.toLowerCase()}</a>`;
+    sc.innerHTML=`<span class="label r">${s.tag}</span><h3>${s.n}</h3><p>${s.d}</p><a class="link" href="#formaciones" style="justify-self:start">Ver formaciones</a>`;
   }
   sl.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b){si=+b.dataset.i;renderS();document.getElementById('st'+si).focus()}});
   sl.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();si=(si+(e.key==='ArrowDown'?1:-1)+STY.length)%STY.length;renderS();document.getElementById('st'+si).focus()}});
@@ -833,111 +718,100 @@ footer{background:var(--band);color:var(--onBand);padding-block:56px 32px}
 
   /* Formaciones (ejemplo) */
   const FORMS=[
-    {k:"form",kl:"Formación",d:"14–16",m:"Nov 2026",t:"Afro-cubano: los orishas en el cuerpo",p:"Módulo 1 de 3 · Yemayá, Oshún y Changó. Historia, cantos y técnica.",loc:"Barcelona",h:"12 h",s:14,max:20},
-    {k:"int",kl:"Intensivo",d:"05–06",m:"Dic 2026",t:"Rumba con percusión en vivo",p:"Guaguancó, yambú y columbia con tambores en vivo. Nivel intermedio.",loc:"Barcelona",h:"8 h",s:17,max:20},
-    {k:"form",kl:"Formación",d:"23–25",m:"Ene 2027",t:"Formación de maestros de casino",p:"Metodología, conteo, cómo cantar la rueda y estructurar un curso anual.",loc:"Barcelona",h:"15 h",s:9,max:16},
-    {k:"onl",kl:"Online",d:"04",m:"Feb 2027",t:"Programa 8 semanas · nueva generación",p:"Clase en vivo semanal y lecciones en video. Desde cualquier país.",loc:"Online",h:"8 sem.",s:42,max:60},
-    {k:"int",kl:"Intensivo",d:"13–14",m:"Mar 2027",t:"Timba Fusion lab",p:"Despelote, pasos libres y musicalidad timba. Coreografía final grabada.",loc:"Barcelona",h:"8 h",s:6,max:24}
+    {kl:"Formación",d:"14—16",m:"Nov 2026",t:"Afro-cubano: los orishas en el cuerpo",p:"Módulo 1 de 3. Yemayá, Oshún y Changó: historia, cantos y técnica.",h:"12 h",s:14,max:20},
+    {kl:"Intensivo",d:"05—06",m:"Dic 2026",t:"Rumba con percusión en vivo",p:"Guaguancó, yambú y columbia con tambores en vivo. Nivel intermedio.",h:"8 h",s:17,max:20},
+    {kl:"Formación",d:"23—25",m:"Ene 2027",t:"Formación de maestros de casino",p:"Metodología, conteo, cómo cantar la rueda y estructurar un curso anual.",h:"15 h",s:9,max:16},
+    {kl:"Online",d:"04",m:"Feb 2027",t:"Programa 8 semanas, nueva generación",p:"Clase en vivo semanal y lecciones en video, desde cualquier país.",h:"8 sem.",s:42,max:60,online:true},
+    {kl:"Intensivo",d:"13—14",m:"Mar 2027",t:"Timba fusión",p:"Despelote, pasos libres y musicalidad timba. Coreografía final grabada.",h:"8 h",s:6,max:24}
   ];
-  const KL={form:"k-form",int:"k-int",onl:"k-onl"};
   document.getElementById('forms').innerHTML=FORMS.map((f,i)=>`
-    <article class="form-row">
-      <div class="when"><b>${f.d}</b><small>${f.m}</small></div>
-      <div><span class="k ${KL[f.k]}">${f.kl}</span><h3>${f.t}</h3><p>${f.p}</p></div>
-      <div class="seats"><span class="loc">${f.loc} · ${f.h}</span><span class="bar"><i style="width:${Math.round(f.s/f.max*100)}%"></i></span><span>${f.max-f.s} plazas libres de ${f.max}</span></div>
-      <a class="btn btn-ink go" href="#booking" data-form="${i}">Inscribirme</a>
+    <article class="fr">
+      <div class="d">${f.d}<small>${f.m}</small></div>
+      <div><span class="label r">${f.kl}</span><h3>${f.t}</h3><p>${f.p}</p></div>
+      <div class="seats"><span>${f.online?'Online':'Barcelona'} · ${f.h}</span><span class="bar"><i style="width:${Math.round(f.s/f.max*100)}%"></i></span><span>${f.max-f.s} de ${f.max} plazas libres</span></div>
+      <a class="link" href="#booking" data-form="${i}">Inscribirme</a>
     </article>`).join('');
 
   /* Agenda (ejemplo) */
   const EVENTS=[
-    {d:"2026-11-14",end:"2026-11-16",k:"form",t:"Formación Afro-cubano · Módulo 1",p:"Barcelona"},
-    {d:"2026-11-19",k:"online",t:"Clase en vivo: Lady Style con Anita",p:"Tamayo Online · 19:00 CET"},
-    {d:"2026-11-28",k:"social",t:"Social cubano + rueda gigante",p:"Barcelona · 21:00"},
-    {d:"2026-12-05",end:"2026-12-06",k:"form",t:"Intensivo Rumba con percusión en vivo",p:"Barcelona"},
-    {d:"2026-12-17",k:"online",t:"Clase en vivo: Guaguancó",p:"Tamayo Online · 19:00 CET"},
-    {d:"2027-01-16",end:"2027-01-18",k:"fest",t:"Festival internacional (por confirmar)",p:"Barcelona · Workshops y show"},
-    {d:"2027-01-23",end:"2027-01-25",k:"form",t:"Formación de maestros de casino",p:"Barcelona"},
-    {d:"2027-02-04",k:"online",t:"Arranca el Programa 8 semanas",p:"Tamayo Online"},
-    {d:"2027-03-13",end:"2027-03-14",k:"form",t:"Timba Fusion lab",p:"Barcelona"}
+    {d:"2026-11-14",end:"2026-11-16",t:"Formación afro-cubano · Módulo 1",p:"Barcelona"},
+    {d:"2026-11-19",t:"Clase en vivo: Lady Style con Anita",p:"Online · 19:00 CET"},
+    {d:"2026-11-28",t:"Social cubano y rueda",p:"Barcelona · 21:00"},
+    {d:"2026-12-05",end:"2026-12-06",t:"Intensivo de rumba con percusión",p:"Barcelona"},
+    {d:"2026-12-17",t:"Clase en vivo: guaguancó",p:"Online · 19:00 CET"},
+    {d:"2027-01-16",end:"2027-01-18",t:"Festival internacional (por confirmar)",p:"Barcelona · Talleres y show"},
+    {d:"2027-01-23",end:"2027-01-25",t:"Formación de maestros de casino",p:"Barcelona"},
+    {d:"2027-02-04",t:"Arranca el programa 8 semanas",p:"Online"},
+    {d:"2027-03-13",end:"2027-03-14",t:"Intensivo timba fusión",p:"Barcelona"}
   ];
-  const KC={form:"var(--red)",fest:"var(--blue)",online:"var(--ink)",social:"var(--sky)"};
-  const KN={form:"Formación",fest:"Festival",online:"Online en vivo",social:"Social"};
-  const MES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-  const MES3=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
-  const pad=n=>String(n).padStart(2,'0'),iso=(y,m,d)=>`${y}-${pad(m+1)}-${pad(d)}`;
-  const onDay=s=>EVENTS.filter(e=>s>=e.d&&s<=(e.end||e.d));
-  let cy=2026,cm=10,sel=null;
-  const daysEl=document.getElementById('days'),evEl=document.getElementById('events');
+  const MES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],M3=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  const pad=n=>String(n).padStart(2,'0'),iso=(y,m,d)=>`${y}-${pad(m+1)}-${pad(d)}`,onDay=s=>EVENTS.filter(e=>s>=e.d&&s<=(e.end||e.d));
+  let cy=2026,cm=10,sel=null;const daysEl=document.getElementById('days'),evEl=document.getElementById('events');
   function render(){
     document.getElementById('calTitle').textContent=`${MES[cm]} ${cy}`;
-    const start=(new Date(cy,cm,1).getDay()+6)%7,dim=new Date(cy,cm+1,0).getDate(),pd=new Date(cy,cm,0).getDate();
-    let h='';for(let i=0;i<start;i++)h+=`<span class="day mute">${pd-start+1+i}</span>`;
-    for(let d=1;d<=dim;d++){const s=iso(cy,cm,d),ev=onDay(s);
-      h+=ev.length?`<button class="day has${sel===s?' sel':''}" data-d="${s}" aria-label="${d} de ${MES[cm]}: ${ev.map(e=>e.t).join(', ')}">${d}<i style="background:${KC[ev[0].k]}"></i></button>`:`<span class="day">${d}</span>`}
-    const rest=(7-(start+dim)%7)%7;for(let i=1;i<=rest;i++)h+=`<span class="day mute">${i}</span>`;
-    daysEl.innerHTML=h;
+    const st=(new Date(cy,cm,1).getDay()+6)%7,dim=new Date(cy,cm+1,0).getDate(),pd=new Date(cy,cm,0).getDate();
+    let h='';for(let i=0;i<st;i++)h+=`<span class="day mute">${pd-st+1+i}</span>`;
+    for(let d=1;d<=dim;d++){const s=iso(cy,cm,d),ev=onDay(s);h+=ev.length?`<button class="day has${sel===s?' sel':''}" data-d="${s}" aria-label="${d} de ${MES[cm]}: ${ev.map(e=>e.t).join(', ')}">${d}</button>`:`<span class="day">${d}</span>`}
+    const rest=(7-(st+dim)%7)%7;for(let i=1;i<=rest;i++)h+=`<span class="day mute">${i}</span>`;daysEl.innerHTML=h;
     const mk=`${cy}-${pad(cm+1)}`,list=EVENTS.filter(e=>e.d.startsWith(mk)||(e.end||'').startsWith(mk));
-    document.getElementById('evLabel').textContent=`Eventos de ${MES[cm].toLowerCase()}`;
+    document.getElementById('evLabel').textContent=MES[cm]+' '+cy;
+    evEl.classList.toggle('filtered',!!sel);
     evEl.innerHTML=list.length?list.map(e=>{const[,m,d]=e.d.split('-'),ed=e.end?e.end.split('-')[2]:null,hl=sel&&onDay(sel).includes(e)?' hl':'';
-      return `<article class="ev${hl}"><div class="d"><b>${+d}${ed?'–'+(+ed):''}</b><small>${MES3[+m-1]}</small></div><div><span class="kind"><i style="background:${KC[e.k]}"></i>${KN[e.k]}</span><h4>${e.t}</h4><p>${e.p}</p></div></article>`}).join('')
-      :`<article class="ev"><div class="d"><b>—</b></div><div><h4>Sin fechas este mes</h4><p>¿Quieres traerlos a tu ciudad? <a href="#booking">Escríbenos</a>.</p></div></article>`;
+      return `<article class="ev${hl}"><div class="d">${+d}${ed?'—'+(+ed):''}<small>${M3[+m-1]}</small></div><div><h4>${e.t}</h4><p>${e.p}</p></div></article>`}).join('')
+      :`<article class="ev"><div class="d">—</div><div><h4>Sin fechas este mes</h4><p>¿Quieres llevarlos a tu ciudad? <a href="#booking">Escríbenos</a>.</p></div></article>`;
   }
   daysEl.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(b){sel=sel===b.dataset.d?null:b.dataset.d;render()}});
   document.getElementById('prevM').onclick=()=>{if(--cm<0){cm=11;cy--}sel=null;render()};
   document.getElementById('nextM').onclick=()=>{if(++cm>11){cm=0;cy++}sel=null;render()};
   render();
 
-  /* Plataforma online (ejemplo) */
+  /* Plataforma (ejemplo) */
   const VIDS=[
     {c:"Afro",t:"Yemayá: el movimiento del mar",dur:"19:45",lvl:"Nivel 2",img:"img/anita-perfil.jpg",pos:"50% 55%",free:true},
     {c:"Rumba",t:"Guaguancó: vacunao y respuesta",dur:"16:30",lvl:"Nivel 2",img:"img/yoannis-senala.jpg",pos:"40% 30%"},
     {c:"Son",t:"Postura y guía: la raíz del casino",dur:"14:20",lvl:"Nivel 1",img:"img/yoannis-clase.jpg",pos:"50% 25%",free:true},
-    {c:"Casino",t:"Dile que no y enchufla sin perder el tiempo",dur:"18:05",lvl:"Nivel 1",img:"img/yoannis-clase.jpg",pos:"50% 65%"},
+    {c:"Casino",t:"Dile que no y enchufla a tiempo",dur:"18:05",lvl:"Nivel 1",img:"img/yoannis-clase.jpg",pos:"50% 65%"},
     {c:"Lady Style",t:"Brazos y caderas con Anita",dur:"21:40",lvl:"Nivel 2",img:"img/anita-senala.jpg",pos:"50% 25%"},
     {c:"Timba",t:"Despelote y pasos libres",dur:"23:10",lvl:"Nivel 3",img:"img/yoannis-senala.jpg",pos:"60% 40%"}
   ];
-  const cats=["Todo",...new Set(VIDS.map(v=>v.c))];let cat="Todo";
-  const fEl=document.getElementById('filters'),vEl=document.getElementById('vids');
+  const cats=["Todo",...new Set(VIDS.map(v=>v.c))];let cat="Todo";const fEl=document.getElementById('filters'),vEl=document.getElementById('vids');
   function renderV(){
     fEl.innerHTML=cats.map(c=>`<button type="button" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join('');
-    vEl.innerHTML=VIDS.map((v,i)=>({v,i})).filter(o=>cat==="Todo"||o.v.c===cat).map(({v,i})=>`<button class="vid" data-i="${i}"><div class="th"><img src="${v.img}" alt="" style="object-position:${v.pos}"><span class="play"></span><span class="dur">${v.dur}</span><span class="lock${v.free?' free':''}">${v.free?'Gratis':'Miembros'}</span></div><small>${v.c} · ${v.lvl}</small><h4>${v.t}</h4></button>`).join('');
+    vEl.innerHTML=VIDS.map((v,i)=>({v,i})).filter(o=>cat==="Todo"||o.v.c===cat).map(({v,i})=>`<button class="lesson" data-i="${i}"><div class="th"><img src="${v.img}" alt="" style="object-position:${v.pos}"><span class="tg${v.free?' free':''}">${v.free?'Gratis':'Miembros'}</span><span class="dur">${v.dur}</span></div><small>${v.c} · ${v.lvl}</small><h4>${v.t}</h4></button>`).join('');
   }
   fEl.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;renderV()}});
-  const modal=document.getElementById('modal');let lastFocus=null;
-  vEl.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;const v=VIDS[+b.dataset.i];lastFocus=b;
+  const modal=document.getElementById('modal');let last=null;
+  vEl.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;const v=VIDS[+b.dataset.i];last=b;
     const im=document.getElementById('mImg');im.src=v.img;im.style.objectPosition=v.pos;
     document.getElementById('mTitle').textContent=v.t;
-    document.getElementById('mSub').textContent=v.free?'Lección gratuita · Disponible pronto':'Lección para miembros · Únete para desbloquear';
-    document.getElementById('mDesc').textContent=`${v.c} · ${v.lvl} · ${v.dur} min`;
+    document.getElementById('mSub').textContent=v.free?'Lección gratuita · Disponible pronto':'Lección para miembros';
+    document.getElementById('mDesc').textContent=`${v.c} · ${v.lvl} · ${v.dur}`;
     modal.hidden=false;document.getElementById('mClose').focus()});
-  const closeM=()=>{modal.hidden=true;lastFocus&&lastFocus.focus()};
+  const closeM=()=>{modal.hidden=true;last&&last.focus()};
   document.getElementById('mClose').onclick=closeM;document.getElementById('mCta').onclick=closeM;
-  modal.addEventListener('click',e=>{if(e.target===modal)closeM()});
-  renderV();
+  modal.addEventListener('click',e=>{if(e.target===modal)closeM()});renderV();
 
   /* Lightbox */
   const lb=document.getElementById('lightbox');
-  document.querySelectorAll('.gal figure[data-src]').forEach(f=>f.addEventListener('click',()=>{const im=document.getElementById('lbImg');im.src=f.dataset.src;im.alt=f.querySelector('img').alt;lb.hidden=false;document.getElementById('lbClose').focus()}));
+  document.querySelectorAll('.gal figure').forEach(f=>f.addEventListener('click',()=>{const im=document.getElementById('lbImg');im.src=f.dataset.src;im.alt=f.querySelector('img').alt;lb.hidden=false;document.getElementById('lbClose').focus()}));
   document.getElementById('lbClose').onclick=()=>lb.hidden=true;
   lb.addEventListener('click',e=>{if(e.target===lb)lb.hidden=true});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!modal.hidden)closeM();lb.hidden=true}});
 
-  /* Booking */
+  /* Contacto */
   const sel2=document.getElementById('fType');
-  const OPTS=[...FORMS.map(f=>`Formación: ${f.t} (${f.d} ${f.m})`),"Talleres para mi festival o escuela","Clases en Barcelona","Clases privadas","Clases online en vivo","Formación online (plataforma)","Coreografía / show"];
+  const OPTS=[...FORMS.map(f=>`Formación: ${f.t} (${f.d} ${f.m})`),"Talleres para mi festival o escuela","Clases en Barcelona","Clases privadas","Clases online en vivo","Formación online (plataforma)","Coreografía o show"];
   sel2.innerHTML=OPTS.map(o=>`<option>${o}</option>`).join('');sel2.value="Talleres para mi festival o escuela";
-  document.getElementById('forms').addEventListener('click',e=>{const b=e.target.closest('[data-form]');if(b)sel2.selectedIndex=+b.dataset.form});
+  document.addEventListener('click',e=>{const f=e.target.closest('[data-form]');if(f){sel2.selectedIndex=+f.dataset.form;return}const o=e.target.closest('[data-opt]');if(o)sel2.value=o.dataset.opt});
   document.getElementById('bookForm').addEventListener('submit',e=>{
-    e.preventDefault();const nm=document.getElementById('fName');const n=nm.value.trim();
+    e.preventDefault();const nm=document.getElementById('fName'),n=nm.value.trim();
     if(!n){nm.focus();nm.placeholder='Escribe tu nombre para continuar';return}
     const c=document.getElementById('fCity').value.trim(),d=document.getElementById('fDate').value,m=document.getElementById('fMsg').value.trim();
-    document.getElementById('outText').textContent=`¡Hola Yoannis y Anita! Soy ${n}${c?` de ${c}`:''}.\nMe interesa: ${sel2.value}${d?`\nFecha tentativa: ${d}`:''}${m?`\nDetalles: ${m}`:''}\n¿Me pasan disponibilidad y tarifas? ¡Gracias!`;
+    document.getElementById('outText').textContent=`Hola Yoannis y Anita, soy ${n}${c?` de ${c}`:''}.\nMe interesa: ${sel2.value}${d?`\nFecha tentativa: ${d}`:''}${m?`\nDetalles: ${m}`:''}\n¿Me pasan disponibilidad y tarifas? Gracias.`;
     document.getElementById('out').hidden=false;
   });
-  document.getElementById('copyBtn').addEventListener('click',async ev=>{
-    const b=ev.currentTarget,txt=document.getElementById('outText').textContent;
-    try{await navigator.clipboard.writeText(txt);b.textContent='Copiado'}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById('outText'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Texto seleccionado, cópialo'}
-  });
+  document.getElementById('copyBtn').addEventListener('click',async ev=>{const b=ev.currentTarget,t=document.getElementById('outText').textContent;
+    try{await navigator.clipboard.writeText(t);b.textContent='Copiado'}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById('outText'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Seleccionado'}});
 })();
 </script>
 
