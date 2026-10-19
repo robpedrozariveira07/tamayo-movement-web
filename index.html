@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <meta name="description" content="Yoannis Tamayo Movement: formaciones, talleres, clases privadas y clases online de baile cubano desde Barcelona para todo el mundo.">
 <meta property="og:title" content="Yoannis Tamayo Movement">
 <meta property="og:description" content="Afro, rumba, son, casino y timba. Formaciones en Barcelona y academia online.">
@@ -13,20 +14,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,200..700;1,62..125,200..500&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap">
 <style>
-/* Layout: quiet gallery — wide margins, light expanded capitals echoing the wordmark, photographs carry colour, red is a single point of emphasis */
+/* Single light look by design. Layout: quiet gallery — wide margins, light expanded capitals echoing the wordmark, photographs carry colour, red is a single point of emphasis */
 :root{
   --bg:#F8F8F7; --surface:#FFFFFF; --ink:#0C0C0E; --muted:#6C6F76; --line:#E4E4E2;
   --red:#D2192A; --blue:#0F448A; --inv:#0C0C0E; --onInv:#F4F4F2; --onInvMuted:rgba(244,244,242,.6); --invLine:rgba(244,244,242,.14);
   --display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0B0B0D; --surface:#121215; --ink:#EDEDEB; --muted:#8F9299; --line:#24242A;
-  --red:#FF4655; --blue:#7EA6EE; --inv:#F4F4F2; --onInv:#0C0C0E; --onInvMuted:rgba(12,12,14,.62); --invLine:rgba(12,12,14,.14); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0B0B0D; --surface:#121215; --ink:#EDEDEB; --muted:#8F9299; --line:#24242A;
-  --red:#FF4655; --blue:#7EA6EE; --inv:#F4F4F2; --onInv:#0C0C0E; --onInvMuted:rgba(12,12,14,.62); --invLine:rgba(12,12,14,.14); color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -73,8 +69,6 @@ header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backgroun
 @media (max-width:1000px){.nav ul{display:none}}
 @media (max-width:420px){.brand span{display:none}}
 .lg-d{display:none}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-l{display:none}:root:not([data-theme="light"]) .lg-d{display:block}}
-:root[data-theme="dark"] .lg-l{display:none}:root[data-theme="dark"] .lg-d{display:block}
 
 /* Hero */
 .hero{padding-block:clamp(48px,7vw,96px) clamp(72px,9vw,120px)}
