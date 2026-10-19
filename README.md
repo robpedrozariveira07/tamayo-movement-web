@@ -1,6 +1,6 @@
 # Yoannis Tamayo Movement · sitio web
 
-Sitio de **Yoannis Tamayo & Anita**: formaciones, talleres, clases privadas, clases online a nivel global y la academia de formación online.
+Sitio de **Yoannis Tamayo & Anita Jiménez**: formaciones, talleres, clases privadas, clases online a nivel global y la academia de formación online.
 
 ## Ver el sitio
 Abre `index.html` en el navegador. Es un solo archivo HTML, sin instalación ni dependencias (solo carga Google Fonts).
@@ -24,7 +24,6 @@ img/         # fotos y logo (versiones para fondo claro y oscuro)
 
 ## Pendiente
 - [ ] Fechas reales de formaciones y agenda (hoy son de ejemplo)
-- [ ] Bio de Anita
 - [ ] Dirección del estudio en Barcelona y horarios
 - [ ] WhatsApp y correo de contacto
 - [ ] Precios reales de la formación online
